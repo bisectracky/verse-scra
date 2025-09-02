@@ -1,0 +1,14 @@
+/* Main CSS file - imports all modular CSS files in exact order */
+/* Import all CSS modules maintaining the exact original sequence */
+@import url("./css/01-base-and-layout.css");
+@import url("./css/02-planet1-interactions.css");
+@import url("./css/03-planet2-interactions.css");
+@import url("./css/04-planet3-interactions.css");
+@import url("./css/05-planet4-interactions.css");
+@import url("./css/06-planet5-interactions.css");
+@import url("./css/07-planet6-interactions.css");
+@import url("./css/08-planet7-interactions.css");
+@import url("./css/09-planet8-interactions.css");
+
+@import url("./css/11-planet-descriptions.css");
+@import url("./css/12-panel-styles.css");
