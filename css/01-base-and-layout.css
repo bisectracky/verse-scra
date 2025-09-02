@@ -1,0 +1,363 @@
+@import url("https://fonts.googleapis.com/css?family=Inter:400,500,600,700,800|Roboto:400,500,700,900");
+.solar_systm {
+  transform-style: preserve-3d;
+  pointer-events: none;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+* {
+  -webkit-user-select: none;
+  /* Chrome all / Safari all */
+  -moz-user-select: none;
+  /* Firefox all */
+  -ms-user-select: none;
+  /* IE 10+ */
+  user-select: none;
+  /* Likely future */
+}
+
+body .solar_systm .planet, body input[type=radio][name=planet]::after, body .overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: auto;
+}
+
+body .solar_systm .planet.base .trajectory.ner, body .solar_systm .planet.base .trajectory.pro, body .solar_systm .planet.base .trajectory.tri, body .solar_systm .planet.titanox .trajectory.enc, body .solar_systm .planet.titanox .trajectory.di, body .solar_systm .planet.titanox .trajectory.ti, body .solar_systm .planet.lumina .trajectory.ga, body .solar_systm .planet.lumina .trajectory.eu, body .solar_systm .planet.lumina .trajectory.lop, body .solar_systm .planet.ferrum .trajectory.p, body .solar_systm .planet.ferrum .trajectory.d, body .solar_systm .planet.ethereus .trajectory.m {
+  border: 2px dashed white;
+  position: absolute;
+  border-radius: 3400px;
+  background: none !important;
+  z-index: -2;
+}
+
+body .solar_systm .planet {
+  height: 1200px;
+  width: 1200px;
+  border-radius: 600px;
+  background: red;
+  transition: transform 2.8s 0.23s cubic-bezier(0.33, 0, 0, 1), opacity 2s 0.8s, box-shadow 0s 0s;
+  background-size: 1140px 910px !important;
+  top: auto;
+  bottom: -920px;
+}
+body .solar_systm .planet .moon {
+  height: 200px;
+  width: 200px;
+  border-radius: 600px;
+  background: red;
+  position: absolute;
+  text-align: center;
+  color: white;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: all 0.6s 0.2s;
+}
+body .solar_systm .planet .moon h2 {
+  font-weight: 600;
+  font-size: 40px;
+  letter-spacing: 5px;
+  margin: 0;
+  position: relative;
+  top: -120px;
+}
+body .solar_systm .planet .moon h3 {
+  font-weight: 500;
+  font-size: 20px;
+  letter-spacing: 5px;
+  color: #fea082;
+  margin: 0;
+  position: relative;
+  top: -120px;
+}
+@-webkit-keyframes planet {
+  from {
+    background-position-y: 0px;
+  }
+  to {
+    background-position-y: -1000px;
+  }
+}
+@keyframes planet {
+  from {
+    background-position-y: 0px;
+  }
+  to {
+    background-position-y: -1000px;
+  }
+}
+
+body .solar {
+  position: absolute;
+  transform: rotatex(-20deg);
+  perspective: 800px;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+body input[type=radio][name=planet]::after {
+  width: 220px;
+  height: 220px;
+  border-radius: 550px;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  outline: none;
+  cursor: pointer;
+  z-index: 12;
+  left: 18px;
+  bottom: 282px;
+}
+
+body {
+  overflow: hidden;
+  background: black;
+  height: 100vh;
+  font-family: "Inter", "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-weight: 500;
+}
+body .logo {
+  color: white;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
+  font-size: 24px;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 4px;
+}
+body .logo span {
+  font-size: 12px;
+  color: #f39041;
+  display: block;
+  margin-top: 8px;
+}
+body label {
+  cursor: pointer;
+}
+body label.solanium > .preview {
+  background: url("../src/solanium.jpg") !important;
+}
+body label.zano > .preview {
+  background: url("../src/zano.jpg") !important;
+}
+body label.ethereus > .preview {
+  background: url("../src/ethereus.jpg") !important;
+}
+body label.ferrum > .preview {
+  background: url("../src/ferrum.jpg") !important;
+}
+body label.lumina > .preview {
+  background: url("../src/lumina.jpg") !important;
+}
+body label.titanox > .preview {
+  background: url("../src/titanox.jpg") !important;
+}
+
+body label.base > .preview {
+  background: url("../src/base2.jpg") !important;
+}
+body label.voidara > .preview {
+  background: url("../src/voidara.png") !important;
+}
+body label.menu {
+  color: white;
+  display: block;
+  position: absolute;
+  cursor: pointer;
+  left: 90px;
+  z-index: 2;
+}
+body label.menu:after {
+  display: block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid white;
+  border-radius: 60px;
+  content: "";
+  z-index: 2;
+  position: absolute;
+  top: -4px;
+  left: -4px;
+}
+body label.menu:hover h2, body label.menu:hover h3 {
+  opacity: 1;
+}
+body label.menu.solanium h2 .pip {
+  background: #E8927C;
+}
+body label.menu.zano h2 .pip {
+  background: #b45d15;
+}
+body label.menu.ethereus h2 .pip {
+  background: #26daaa;
+}
+body label.menu.ferrum h2 .pip {
+  background: #e55f45;
+}
+body label.menu.lumina h2 .pip {
+  background: orange;
+}
+body label.menu.titanox h2 .pip {
+  background: #b29d81;
+}
+
+body label.menu.base h2 .pip {
+  background: #4f83e2;
+}
+body label.menu.voidara h2 .pip {
+  background: #FF8732;
+}
+body label.menu .preview {
+  width: 30px;
+  height: 30px;
+  background: yellow;
+  float: left;
+  background-size: auto 100% !important;
+  position: absolute;
+  border-radius: 100px;
+  box-shadow: 0 -13px 10px 2px black inset;
+}
+body label.menu .info {
+  position: relative;
+  left: 50px;
+  top: 1px;
+}
+body label.menu h2,
+body label.menu h3 {
+  text-transform: uppercase;
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+body label.menu h2 {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-bottom: 4px;
+}
+body label.menu h2 .pip {
+  width: 0;
+  height: 9px;
+  background: #fea082;
+  float: left;
+  position: relative;
+  top: 3px;
+  transition: all 0.3s;
+  margin-right: 0px;
+}
+body label.menu h3 {
+  font-size: 11px;
+  letter-spacing: 1px;
+  transition: all 0.3s;
+  opacity: 0.7;
+  font-weight: 500;
+}
+body label.menu:nth-of-type(1) {
+  top: calc(50vh + 100px + ((16px + 36px) * 1) + 0px - 369px);
+}
+body label.menu:nth-of-type(2) {
+  top: calc(50vh + 100px + ((16px + 36px) * 2) + 0px - 369px);
+}
+body label.menu:nth-of-type(3) {
+  top: calc(50vh + 100px + ((16px + 36px) * 3) + 0px - 369px);
+}
+body label.menu:nth-of-type(4) {
+  top: calc(50vh + 100px + ((16px + 36px) * 4) + 0px - 369px);
+}
+body label.menu:nth-of-type(5) {
+  top: calc(50vh + 100px + ((16px + 36px) * 5) + 0px - 369px);
+}
+body label.menu:nth-of-type(6) {
+  top: calc(50vh + 100px + ((16px + 36px) * 6) + 0px - 369px);
+}
+body label.menu:nth-of-type(7) {
+  top: calc(50vh + 100px + ((16px + 36px) * 7) + 0px - 369px);
+}
+body label.menu:nth-of-type(8) {
+  top: calc(50vh + 100px + ((16px + 36px) * 8) + 0px - 369px);
+}
+body label.menu:nth-of-type(9) {
+  top: calc(50vh + 100px + ((16px + 36px) * 9) + 0px - 369px);
+}
+body input.read {
+  display: none;
+}
+body .read:checked + label + input + .panel {
+  right: 0;
+}
+body .read:checked + label {
+  width: calc(100% - 420px);
+}
+body .read:checked + label::after {
+  opacity: 1;
+  left: 0;
+}
+body .read:checked + label + label {
+  transition: all 0.3s 0.6s;
+  opacity: 1;
+}
+body .read:not(:checked) + label + label {
+  transition: all 0.3s 0s;
+  opacity: 0;
+}
+body label.close {
+  position: absolute;
+  right: 60px;
+  opacity: 0;
+  transition: all 0.3s 0.4s;
+  z-index: 3;
+  top: 65px;
+}
+body label.closeBig {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  height: 100vh;
+  transition: all 0.2s;
+  z-index: 10;
+  width: 0;
+  background: rgba(56, 37, 99, 0.38);
+}
+body label.closeBig::after {
+  content: "Back";
+  text-align: center;
+  font-size: 30px;
+  color: white;
+  position: absolute;
+  left: -140px;
+  opacity: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+body .overlay {
+  border-bottom: 1020px solid black;
+  width: 1800px;
+  height: 620px;
+  top: auto;
+  transform: none;
+  top: -240px;
+  left: -303px;
+  opacity: 1;
+  border-radius: 100%;
+  z-index: 0;
+  box-shadow: 0px -190px 215px 110px black inset;
+}
+body input[type=radio][name=planet] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+body input[type=radio][name=planet]::after {
+  content: "";
+}

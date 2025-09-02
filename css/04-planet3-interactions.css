@@ -1,0 +1,138 @@
+body input[type=radio][name=planet].planet3:checked::after {
+  display: none;
+}
+body input[type=radio][name=planet].planet3:checked + label + input::after {
+  display: none;
+}
+body input[type=radio][name=planet].planet3:checked + label + input + label + input::after {
+  display: none;
+}
+body input[type=radio][name=planet].planet3:checked + label + input + label + input + label + input::after {
+  display: none;
+}
+body input[type=radio][name=planet].planet3:checked + label + input + label + input + label + div .solar_systm:nth-of-type(3) {
+  pointer-events: all;
+}
+body input[type=radio][name=planet].planet3:checked + label + input + label + input + label + div .solar_systm:nth-of-type(1) .planet {
+  transform: translateZ(4600px) translateY(0) rotatex(4deg) scaleX(0.89);
+  opacity: 4;
+}
+body input[type=radio][name=planet].planet3:checked + label + input + label + input + label + div .solar_systm:nth-of-type(2) .planet {
+  transform: translateZ(2300px) translateY(0) rotatex(4deg) scaleX(0.89);
+  opacity: 3;
+}
+body input[type=radio][name=planet].planet3:checked + label + input + label + input + label + div .solar_systm:nth-of-type(3) .planet {
+  transform: translateZ(0px) translateY(0) rotatex(4deg) scaleX(0.89);
+  opacity: 2;
+  -webkit-animation: planet 60s 3.9s infinite linear;
+          animation: planet 60s 3.9s infinite linear;
+}
+body input[type=radio][name=planet].planet3:checked + label + input + label + input + label + div .solar_systm:nth-of-type(3) .planet_description {
+  opacity: 1;
+  transition: all 0.6s 2.6s;
+}
+body input[type=radio][name=planet].planet3:checked + label + input + label + input + label + div .solar_systm:nth-of-type(3) .planet_description h2,
+body input[type=radio][name=planet].planet3:checked + label + input + label + input + label + div .solar_systm:nth-of-type(3) .planet_description h1 {
+  position: relative;
+  top: 0px;
+  transition: all 0.5s 3s;
+}
+body input[type=radio][name=planet].planet3:checked + label + input + label + input + label + div .solar_systm:nth-of-type(3) .planet_description p,
+body input[type=radio][name=planet].planet3:checked + label + input + label + input + label + div .solar_systm:nth-of-type(3) .planet_description a {
+  transition: all 1s 3.5s, padding 0.3s 0s;
+  opacity: 1;
+}
+body input[type=radio][name=planet].planet3:checked + label + input + label + input + label + div .solar_systm:nth-of-type(3) .planet .moon {
+  opacity: 1;
+  transition: all 1s 3.2s;
+}
+body input[type=radio][name=planet].planet3:checked + label + input + label + input + label + div .solar_systm:nth-of-type(3) .planet .trajectory {
+  opacity: 0.2;
+  transition: all 0.6s 2.9s;
+}
+body input[type=radio][name=planet].planet3:checked + label + input + label + input + label + div .solar_systm:nth-of-type(3) .planet .overlay {
+  opacity: 1;
+  top: -240px;
+}
+body input[type=radio][name=planet].planet3:checked + label + input + label + input + label + div .solar_systm:nth-of-type(4) .planet {
+  transform: translateZ(-2300px) translateY(0) rotatex(4deg) scaleX(0.89);
+  opacity: 1;
+}
+body input[type=radio][name=planet].planet3:checked + label + input + label + input + label + div .solar_systm:nth-of-type(5) .planet {
+  transform: translateZ(-4600px) translateY(0) rotatex(4deg) scaleX(0.89);
+  opacity: 0;
+}
+body input[type=radio][name=planet].planet3:checked + label + input + label + input + label + div .solar_systm:nth-of-type(6) .planet {
+  transform: translateZ(-6900px) translateY(0) rotatex(4deg) scaleX(0.89);
+  opacity: -1;
+}
+body input[type=radio][name=planet].planet3:checked + label + input + label + input + label + div .solar_systm:nth-of-type(7) .planet {
+  transform: translateZ(-9200px) translateY(0) rotatex(4deg) scaleX(0.89);
+  opacity: -2;
+}
+body input[type=radio][name=planet].planet3:checked + label + input + label + input + label + div .solar_systm:nth-of-type(8) .planet {
+  transform: translateZ(-11500px) translateY(0) rotatex(4deg) scaleX(0.89);
+  opacity: -3;
+}
+body input[type=radio][name=planet].planet3:checked + label + input + label + input + label + div .solar_systm:nth-of-type(9) .planet {
+  transform: translateZ(-13800px) translateY(0) rotatex(4deg) scaleX(0.89);
+  opacity: -4;
+}
+body input[type=radio][name=planet].planet3:checked + label.solanium > .info h3 {
+  color: #E8927C;
+}
+body input[type=radio][name=planet].planet3:checked + label.zano > .info h3 {
+  color: #b45d15;
+}
+body input[type=radio][name=planet].planet3:checked + label.ethereus > .info h3 {
+  color: #26daaa;
+}
+body input[type=radio][name=planet].planet3:checked + label.ferrum > .info h3 {
+  color: #e55f45;
+}
+body input[type=radio][name=planet].planet3:checked + label.lumina > .info h3 {
+  color: orange;
+}
+body input[type=radio][name=planet].planet3:checked + label.titanox > .info h3 {
+  color: #b29d81;
+}
+body input[type=radio][name=planet].planet3:checked + label.base > .info h3 {
+  color: #4f83e2;
+}
+body input[type=radio][name=planet].planet3:checked + label.voidara > .info h3 {
+  color: #FF8732;
+}
+body input[type=radio][name=planet].planet3:checked + label {
+  opacity: 1;
+}
+body input[type=radio][name=planet].planet3:checked + label:before {
+  display: block;
+  width: 4px;
+  height: 4px;
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  z-index: 2;
+  background: white;
+  border-radius: 4px;
+  content: "";
+}
+body input[type=radio][name=planet].planet3:checked + label > .info h2 {
+  opacity: 1;
+}
+body input[type=radio][name=planet].planet3:checked + label > .info h2 .pip {
+  width: 30px;
+  margin-right: 6px;
+}
+body input[type=radio][name=planet].planet3:checked + label > .info h3 {
+  opacity: 1;
+  color: #fea082;
+}
+body input[type=radio][name=planet] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+body input[type=radio][name=planet]::after {
+  content: "";
+}
