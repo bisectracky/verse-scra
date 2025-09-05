@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import './MiningCompletionAnimation.css'
+import Confetti from './Confetti'
 
 const MiningCompletionAnimation = ({ isVisible, onClose, miningResults }) => {
     const [isCollecting, setIsCollecting] = useState(false)
     const [isDone, setIsDone] = useState(false)
+    const [showInitialConfetti, setShowInitialConfetti] = useState(false)
+    const [showCollectionConfetti, setShowCollectionConfetti] = useState(false)
 
     // Default mining results if none provided
     const defaultResults = {
@@ -36,11 +39,15 @@ const MiningCompletionAnimation = ({ isVisible, onClose, miningResults }) => {
         if (isVisible) {
             setIsCollecting(false)
             setIsDone(false)
+            setShowCollectionConfetti(false)
+            // Start confetti immediately when modal becomes visible
+            setShowInitialConfetti(true)
         }
     }, [isVisible])
 
     const handleCollect = () => {
         setIsCollecting(true)
+        setShowCollectionConfetti(true)
 
         // Simulate collection transaction
         setTimeout(() => {
@@ -64,6 +71,32 @@ const MiningCompletionAnimation = ({ isVisible, onClose, miningResults }) => {
 
     return (
         <div className="mining-completion-overlay" onClick={handleOverlayClick}>
+            {/* Initial confetti when mining completes */}
+            <Confetti
+                isActive={showInitialConfetti}
+                onComplete={() => setShowInitialConfetti(false)}
+            />
+
+            {/* Collection confetti when collecting rewards */}
+            {showCollectionConfetti && (
+                <div className="collection-confetti">
+                    {Array.from({ length: 20 }, (_, i) => (
+                        <div
+                            key={i}
+                            className="confetti-particle"
+                            style={{
+                                '--random-x': `${(Math.random() - 0.5) * 200}px`,
+                                '--random-y': `${(Math.random() - 0.5) * 200}px`,
+                                backgroundColor: ['#d3a510', '#f4c430', '#ffe4a1', '#ccb069'][Math.floor(Math.random() * 4)],
+                                left: '50%',
+                                top: '50%',
+                                animationDelay: `${Math.random() * 0.5}s`
+                            }}
+                        />
+                    ))}
+                </div>
+            )}
+
             <div className="mining-completion-container" onClick={handleOverlayClick}>
                 <svg xmlns="http://www.w3.org/2000/svg" height="200" width="200" className="mining-animation">
                     <g style={{order: -1}}>
@@ -148,6 +181,14 @@ const MiningCompletionAnimation = ({ isVisible, onClose, miningResults }) => {
 
                             <div className="success-icon">
                                 <div className="checkmark">✓</div>
+                                <div className="success-sparkle">
+                                    <div className="sparkle"></div>
+                                    <div className="sparkle"></div>
+                                    <div className="sparkle"></div>
+                                    <div className="sparkle"></div>
+                                    <div className="sparkle"></div>
+                                    <div className="sparkle"></div>
+                                </div>
                             </div>
 
                             <button className="done-btn" onClick={handleDone}>
