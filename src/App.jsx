@@ -5,6 +5,8 @@ import { client, chains } from './config/thirdweb'
 import PlanetMenu from './components/PlanetMenu'
 import SolarSystem from './components/SolarSystem'
 import PlanetDetails from './components/PlanetDetails'
+import ErrorBoundary from './components/ErrorBoundary'
+import WalletFallback from './components/WalletFallback'
 import './App.css'
 
 const App = () => {
@@ -22,6 +24,44 @@ const App = () => {
 
   const account = useActiveAccount()
   const wallet = useActiveWallet()
+  
+  // Handle wallet connection errors gracefully
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.ethereum) {
+      // Clear any potential conflicts
+      const handleAccountsChanged = (accounts) => {
+        console.log('Accounts changed:', accounts)
+      }
+      
+      const handleChainChanged = (chainId) => {
+        console.log('Chain changed:', chainId)
+      }
+      
+      const handleConnect = (connectInfo) => {
+        console.log('Wallet connected:', connectInfo)
+      }
+      
+      const handleDisconnect = (error) => {
+        console.log('Wallet disconnected:', error)
+      }
+
+      // Add event listeners
+      window.ethereum.on('accountsChanged', handleAccountsChanged)
+      window.ethereum.on('chainChanged', handleChainChanged)
+      window.ethereum.on('connect', handleConnect)
+      window.ethereum.on('disconnect', handleDisconnect)
+
+      return () => {
+        // Cleanup event listeners
+        if (window.ethereum && window.ethereum.removeListener) {
+          window.ethereum.removeListener('accountsChanged', handleAccountsChanged)
+          window.ethereum.removeListener('chainChanged', handleChainChanged)
+          window.ethereum.removeListener('connect', handleConnect)
+          window.ethereum.removeListener('disconnect', handleDisconnect)
+        }
+      }
+    }
+  }, [])
 
   useEffect(() => {
     const hash = window.location.hash.substring(1)
@@ -47,17 +87,20 @@ const App = () => {
 
 
   return (
-    <div className="app">
-      <div className="wallet-container">
-        <ConnectButton 
-          client={client}
-          chains={chains}
-          theme="dark"
-          connectButton={{
-            label: "Connect Wallet",
-          }}
-        />
-      </div>
+    <ErrorBoundary>
+      <div className="app">
+        <div className="wallet-container">
+          <ErrorBoundary>
+            <ConnectButton 
+              client={client}
+              chains={chains}
+              theme="dark"
+              connectButton={{
+                label: "Connect Wallet",
+              }}
+            />
+          </ErrorBoundary>
+        </div>
 
       <h1 className='logo'>
         Resource Explorer
@@ -88,7 +131,8 @@ const App = () => {
       />
 
       <PlanetDetails />
-    </div>
+      </div>
+    </ErrorBoundary>
   )
 }
 
