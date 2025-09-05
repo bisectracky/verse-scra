@@ -9,4 +9,10 @@ export default defineConfig({
   build: {
     target: 'esnext',
   },
+  server: {
+    port: 5173,
+    hmr: {
+      port: 5173,
+    },
+  },
 })
