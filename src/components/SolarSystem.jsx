@@ -25,7 +25,7 @@ const SolarSystem = ({ planets, selectedPlanet, isWalletConnected }) => {
         },
         lumina: {
             type: "Ocean World",
-            description: "A water world completely covered by shallow seas with liquid ether islands"
+            description: "A water world completely covered by shallow seas with liquid lumen islands"
         },
         titanox: {
             type: "Forest World",

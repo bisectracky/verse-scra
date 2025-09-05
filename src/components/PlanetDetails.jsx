@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import minerIcon from '../images/miner.png'
+import MiningCompletionAnimation from './MiningCompletionAnimation'
 
 // Token icons - using placeholder paths for now
 const tokenIcons = {
@@ -11,6 +12,8 @@ const tokenIcons = {
 
 const PlanetDetails = () => {
     const [isMining, setIsMining] = useState(false)
+    const [showCompletionAnimation, setShowCompletionAnimation] = useState(false)
+    const [miningResults, setMiningResults] = useState(null)
 
     // Resource data for each planet
     const planetResources = {
@@ -24,7 +27,9 @@ const PlanetDetails = () => {
             miningDifficulty: 'Medium',
             currentMiners: 12,
             miningPrice: '0.01 ETH',
-            estimatedReward: '300,000 VERSE'
+            estimatedReward: '300,000 VERSE',
+            crewRequirement: 0,
+            experienceRequirement: '1,234 XP'
         },
         zano: {
             resources: [
@@ -36,7 +41,9 @@ const PlanetDetails = () => {
             miningDifficulty: 'Hard',
             currentMiners: 8,
             miningPrice: '0.01 ETH',
-            estimatedReward: '300,000 VERSE'
+            estimatedReward: '300,000 VERSE',
+            crewRequirement: 1,
+            experienceRequirement: '2,500 XP'
         },
         ethereus: {
             resources: [
@@ -48,7 +55,9 @@ const PlanetDetails = () => {
             miningDifficulty: 'Easy',
             currentMiners: 25,
             miningPrice: '0.01 ETH',
-            estimatedReward: '300,000 VERSE'
+            estimatedReward: '300,000 VERSE',
+            crewRequirement: 0,
+            experienceRequirement: '500 XP'
         },
         ferrum: {
             resources: [
@@ -268,8 +277,50 @@ const PlanetDetails = () => {
         // Simulate mining process with loading states
         setTimeout(() => {
             setIsMining(false)
-            alert(`Mining started on ${planetId}! Check your wallet for transaction confirmation.`)
+            
+            // Generate random mining results based on planet
+            const results = generateMiningResults(planetId)
+            setMiningResults(results)
+            setShowCompletionAnimation(true)
         }, 3000)
+    }
+
+    const generateMiningResults = (planetId) => {
+        // Generate random amounts based on planet difficulty and resources
+        const baseAmounts = {
+            solanium: { verse: 25000, tbtc: 0.18, pol: 500, dai: 1300 },
+            zano: { verse: 15000, tbtc: 0.08, pol: 300, dai: 800 },
+            ethereus: { verse: 35000, tbtc: 0.25, pol: 700, dai: 1800 },
+            ferrum: { verse: 22000, tbtc: 0.15, pol: 450, dai: 1200 },
+            lumina: { verse: 18000, tbtc: 0.12, pol: 350, dai: 900 },
+            titanox: { verse: 30000, tbtc: 0.22, pol: 600, dai: 1500 },
+            base: { verse: 40000, tbtc: 0.35, pol: 800, dai: 2000 },
+            voidara: { verse: 12000, tbtc: 0.05, pol: 200, dai: 500 }
+        }
+
+        const amounts = baseAmounts[planetId] || baseAmounts.solanium
+        
+        // Add some randomness (±20%)
+        const randomize = (amount) => {
+            const variation = 0.8 + Math.random() * 0.4 // 0.8 to 1.2
+            return Math.floor(amount * variation)
+        }
+
+        return {
+            primaryToken: { 
+                symbol: 'VERSE', 
+                amount: randomize(amounts.verse).toLocaleString() 
+            },
+            secondaryTokens: [
+                { symbol: 'tBTC', amount: (amounts.tbtc * (0.8 + Math.random() * 0.4)).toFixed(2) },
+                { symbol: 'POL', amount: randomize(amounts.pol).toLocaleString() },
+                { symbol: 'DAI', amount: randomize(amounts.dai).toLocaleString() }
+            ]
+        }
+    }
+
+    const handleCloseCompletionAnimation = () => {
+        setShowCompletionAnimation(false)
     }
 
     const getDifficultyColor = (difficulty) => {
@@ -294,6 +345,11 @@ const PlanetDetails = () => {
 
     return (
         <>
+            <MiningCompletionAnimation 
+                isVisible={showCompletionAnimation}
+                onClose={handleCloseCompletionAnimation}
+                miningResults={miningResults}
+            />
             {planetNames.map(planetId => {
                 // const details = planetDetails[planetId]
                 const resources = planetResources[planetId]
@@ -307,7 +363,7 @@ const PlanetDetails = () => {
                         <div className='panel'>
                             {/* Mining Resources Sidebar */}
                             <div className="mining-sidebar">
-                                <h2>Planet Resources</h2>
+                                <h2>Select Planet Resources</h2>
 
                                 <div className="resources-grid">
                                     {resources.resources.map((resource, idx) => (
@@ -336,8 +392,23 @@ const PlanetDetails = () => {
 
                                 <div className="mining-stats">
                                     <div className="stat-item">
-                                        <span className="stat-label">Your Balance:</span>
+                                        <span className="stat-label">Your ETH Balance:</span>
                                         <span className="stat-value balance">0.06193 ETH</span>
+                                    </div>
+
+                                    <div className="stat-item">
+                                        <span className="stat-label">Your Verse Balance:</span>
+                                        <span className="stat-value balance">0.06193 ETH</span>
+                                    </div>
+
+                                    <div className="stat-item">
+                                        <span className="stat-label">Crew Requirement:</span>
+                                        <span className="stat-value crew">0 Voyagers</span>
+                                    </div>
+
+                                    <div className="stat-item">
+                                        <span className="stat-label">Experience Requirement:</span>
+                                        <span className="stat-value experience">1,234 XP</span>
                                     </div>
 
                                     <div className="stat-item">
@@ -374,7 +445,7 @@ const PlanetDetails = () => {
                                                 Starting Mining Operation...
                                             </>
                                         ) : (
-                                            'Start Mining Operation'
+                                            '⛏️ Start Mining Operation'
                                         )}
                                     </strong>
                                     <div id="container-stars">

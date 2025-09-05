@@ -138,8 +138,11 @@ body .panel p {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
-    padding: 12px;
+    padding: 14px;
     transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    min-height: 80px;
 }
 
 .resource-item:hover {
@@ -152,13 +155,18 @@ body .panel p {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
+    min-height: 24px;
+    width: 100%;
+    gap: 8px;
 }
 
 .resource-symbol-container {
     display: flex;
     align-items: center;
     gap: 8px;
+    flex: 1;
+    min-width: 0;
 }
 
 .token-icon {
@@ -166,33 +174,43 @@ body .panel p {
     height: 20px;
     border-radius: 50%;
     flex-shrink: 0;
+    display: block;
 }
 
 .resource-symbol {
     font-weight: 700;
     color: #fff;
     font-size: 14px;
+    line-height: 1.2;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .resource-rarity {
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 600;
     text-transform: uppercase;
-    padding: 2px 6px;
-    border-radius: 4px;
-    background: rgba(255, 255, 255, 0.1);
+    padding: 3px 8px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.15);
+    white-space: nowrap;
+    flex-shrink: 0;
+    line-height: 1;
 }
 
 .resource-amount {
     font-size: 16px;
     font-weight: 600;
     color: #4CAF50;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
+    line-height: 1.2;
 }
 
 .resource-price {
     font-size: 12px;
     color: #ccc;
+    line-height: 1.2;
+    margin-top: auto;
 }
 
 /* Mining Stats */
@@ -251,6 +269,14 @@ body .panel p {
     color: #FF5722;
 }
 
+.stat-value.crew {
+    color: #FF9800;
+}
+
+.stat-value.experience {
+    color: #9C27B0;
+}
+
 /* Start Mining Button - Futuristic Gradient Design */
 .start-mining-btn {
     display: flex;
@@ -300,7 +326,7 @@ body .panel p {
     overflow: hidden;
     transition: 0.5s;
     backdrop-filter: blur(1rem);
-    border-radius: 5rem;
+    border-radius: 15rem;
 }
 
 .start-mining-btn #glow {
