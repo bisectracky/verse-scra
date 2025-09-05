@@ -121,6 +121,7 @@ body {
   height: 100vh;
   font-family: "Inter", "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-weight: 500;
+  margin: 0px;
 }
 body .logo {
   color: white;

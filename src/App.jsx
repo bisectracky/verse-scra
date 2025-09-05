@@ -24,7 +24,7 @@ const App = () => {
 
   const account = useActiveAccount()
   const wallet = useActiveWallet()
-  
+
   // Handle wallet connection errors gracefully
   useEffect(() => {
     if (typeof window !== 'undefined' && window.ethereum) {
@@ -32,15 +32,15 @@ const App = () => {
       const handleAccountsChanged = (accounts) => {
         console.log('Accounts changed:', accounts)
       }
-      
+
       const handleChainChanged = (chainId) => {
         console.log('Chain changed:', chainId)
       }
-      
+
       const handleConnect = (connectInfo) => {
         console.log('Wallet connected:', connectInfo)
       }
-      
+
       const handleDisconnect = (error) => {
         console.log('Wallet disconnected:', error)
       }
@@ -91,7 +91,7 @@ const App = () => {
       <div className="app">
         <div className="wallet-container">
           <ErrorBoundary>
-            <ConnectButton 
+            <ConnectButton
               client={client}
               chains={chains}
               theme="dark"
@@ -103,7 +103,7 @@ const App = () => {
         </div>
 
       <h1 className='logo'>
-        Resource Explorer
+        Verse Explorer
         <span>WEB3 Mining System</span>
       </h1>
 
@@ -118,13 +118,13 @@ const App = () => {
         </div>
       )}
 
-      <PlanetMenu 
+      <PlanetMenu
         planets={planets}
         selectedPlanet={selectedPlanet}
         onPlanetSelect={handlePlanetSelect}
       />
 
-      <SolarSystem 
+      <SolarSystem
         planets={planets}
         selectedPlanet={selectedPlanet}
         isWalletConnected={!!account}

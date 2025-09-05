@@ -43,6 +43,7 @@
 /* Resource check button styles when wallet connected */
 .check-resources-btn {
   cursor: pointer;
+  font-size: 14px !important;
   transition: all 0.3s ease;
 }
 

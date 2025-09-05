@@ -1,75 +1,465 @@
 body .panel {
-  position: absolute;
-  right: -520px;
-  width: 300px;
-  top: 0;
-  height: 100vh;
-  transition: all 0.2s;
-  color: black;
-  background: white;
-  padding: 10px 60px 0px 60px;
-  overflow: scroll;
+    position: absolute;
+    right: -520px;
+    width: 420px;
+    top: 0;
+    height: 100vh;
+    transition: all 0.2s;
+    color: black;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    z-index: 1000;
+    overflow: hidden;
 }
+
 body .panel body::-webkit-scrollbar {
-  width: 1em;
+    width: 1em;
 }
+
 body .panel body::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
+
 body .panel body::-webkit-scrollbar-thumb {
-  background-color: darkgrey;
-  outline: 1px solid slategrey;
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
 }
+
 body .panel .profile {
-  padding-top: 4px;
+    padding-top: 4px;
 }
+
 body .panel .profile p {
-  line-height: 10px;
+    line-height: 10px;
 }
+
 body .panel .profile p span {
-  font-weight: 600;
-  color: black;
+    font-weight: 600;
+    color: black;
 }
+
 body .panel img {
-  border-radius: 2px;
-  width: 100%;
+    border-radius: 2px;
+    width: 100%;
 }
+
 body .panel h1 {
-  text-transform: uppercase;
-  font-weight: 700;
-  margin: 0 0 0 0;
-  letter-spacing: 3px;
-  top: 0;
-  padding: 49px 0 0 0;
-  width: 100%;
-  font-size: 22px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 0 0 0 0;
+    letter-spacing: 3px;
+    top: 0;
+    padding: 49px 0 0 0;
+    width: 100%;
+    font-size: 22px;
 }
+
 body .panel h1::after {
-  width: 30px;
-  height: 2px;
-  background: black;
-  display: block;
-  content: "";
-  margin-bottom: 30px;
-  margin-top: 8px;
+    width: 30px;
+    height: 2px;
+    background: black;
+    display: block;
+    content: "";
+    margin-bottom: 30px;
+    margin-top: 8px;
 }
+
 body .panel h2 {
-  font-size: 14px;
-  text-transform: uppercase;
-  font-weight: 700;
-  margin-top: 30px;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-top: 30px;
 }
+
 body .panel h2::after {
-  width: 30px;
-  height: 2px;
-  background: black;
-  display: block;
-  content: "";
-  margin-top: 8px;
+    width: 30px;
+    height: 2px;
+    background: black;
+    display: block;
+    content: "";
+    margin-top: 8px;
 }
+
 body .panel p {
-  color: #666666;
-  font-size: 13px;
-  line-height: 22px;
-  font-weight: 400;
+    color: #666666;
+    font-size: 13px;
+    line-height: 22px;
+    font-weight: 400;
+}
+
+/* Mining Sidebar Styles */
+.mining-sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    margin: 0;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.mining-sidebar h2 {
+    color: #fff;
+    font-size: 18px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.mining-sidebar h2::after {
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, #4CAF50, #2196F3);
+    display: block;
+    content: "";
+    margin: 8px auto 0;
+}
+
+/* Resources Grid */
+.resources-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.resource-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 12px;
+    transition: all 0.3s ease;
+}
+
+.resource-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.resource-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.resource-symbol-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.token-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.resource-symbol {
+    font-weight: 700;
+    color: #fff;
+    font-size: 14px;
+}
+
+.resource-rarity {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.resource-amount {
+    font-size: 16px;
+    font-weight: 600;
+    color: #4CAF50;
+    margin-bottom: 4px;
+}
+
+.resource-price {
+    font-size: 12px;
+    color: #ccc;
+}
+
+/* Mining Stats */
+.mining-stats {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-item:last-child {
+    margin-bottom: 0;
+    border-bottom: none;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #ccc;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stat-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.stat-value.difficulty {
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.stat-value.cost {
+    color: #FF9800;
+}
+
+.stat-value.reward {
+    color: #4CAF50;
+}
+
+.stat-value.balance {
+    color: #2196F3;
+}
+
+.stat-value.chance {
+    color: #FF5722;
+}
+
+/* Start Mining Button - Futuristic Gradient Design */
+.start-mining-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+    height: 3rem;
+    background-size: 300% 300%;
+    cursor: pointer;
+    backdrop-filter: blur(1rem);
+    border-radius: 5rem;
+    transition: 0.5s;
+    border: 0px;
+    animation: gradient_301 5s ease infinite;
+    border: double 4px transparent;
+    background-image: linear-gradient(#212121, #212121),
+        linear-gradient(
+            137.48deg,
+            #ffdb3b 10%,
+            #fe53bb 45%,
+            #8f51ea 67%,
+            #0044ff 87%
+        );
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    position: relative;
+    border-width: 0px !important;
+    margin: 10px 0;
+}
+
+.start-mining-btn strong {
+    z-index: 2;
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: #ffffff;
+    text-shadow: 0 0 5px #000000aa;
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+.start-mining-btn #container-stars {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transition: 0.5s;
+    backdrop-filter: blur(1rem);
+    border-radius: 5rem;
+}
+
+.start-mining-btn #glow {
+    position: absolute;
+    display: flex;
+    width: 100%;
+}
+
+.start-mining-btn .circle {
+    width: 100%;
+    height: 30px;
+    filter: blur(2rem);
+    animation: pulse_3011 4s infinite;
+    z-index: -1;
+}
+
+.start-mining-btn .circle:nth-of-type(1) {
+    background: rgba(254, 83, 186, 0.636);
+}
+
+.start-mining-btn .circle:nth-of-type(2) {
+    background: rgba(142, 81, 234, 0.704);
+}
+
+.start-mining-btn:hover #container-stars {
+    z-index: 1;
+    background-color: #675b9d;
+}
+
+.start-mining-btn:active {
+    border: double 4px #fe53bb;
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    animation: none;
+}
+
+.start-mining-btn:active .circle {
+    background: #fe53bb;
+}
+
+.start-mining-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    animation: none;
+}
+
+.start-mining-btn:disabled:hover {
+    transform: none;
+}
+
+.start-mining-btn #stars {
+    position: relative;
+    background: transparent;
+    width: 200rem;
+    height: 200rem;
+}
+
+.start-mining-btn #stars::after {
+    content: "";
+    position: absolute;
+    top: -10rem;
+    left: -100rem;
+    width: 100%;
+    height: 100%;
+    animation: animStarRotate 90s linear infinite;
+    background-image: radial-gradient(#ffffff 1px, transparent 1%);
+    background-size: 50px 50px;
+}
+
+.start-mining-btn #stars::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 170%;
+    height: 500%;
+    animation: animStar 60s linear infinite;
+    background-image: radial-gradient(#ffffff 1px, transparent 1%);
+    background-size: 50px 50px;
+    opacity: 0.5;
+}
+
+
+/* Mining Spinner */
+.mining-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes animStar {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-135rem);
+    }
+}
+
+@keyframes animStarRotate {
+    from {
+        transform: rotate(360deg);
+    }
+    to {
+        transform: rotate(0);
+    }
+}
+
+@keyframes gradient_301 {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes pulse_3011 {
+    0% {
+        transform: scale(0.75);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+    }
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+    }
+    100% {
+        transform: scale(0.75);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .resources-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mining-sidebar {
+        padding: 15px;
+    }
+
+    .start-mining-btn {
+        padding: 12px 16px;
+        font-size: 14px;
+    }
 }
