@@ -218,7 +218,7 @@ body.mining-completion-active .mining-sidebar {
     }
 }
 
-@keyframes particles {
+@keyframes partciles {
     0%,
     100% {
         translate: 0px 16px;
@@ -229,7 +229,7 @@ body.mining-completion-active .mining-sidebar {
 }
 
 #particles {
-    animation: particles 4s ease-in-out infinite;
+    animation: partciles 4s ease-in-out infinite;
 }
 
 #animatedStop {
