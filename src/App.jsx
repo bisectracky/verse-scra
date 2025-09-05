@@ -19,7 +19,6 @@ const App = () => {
     base: { name: 'Base', miners: 0, owner: null },
     voidara: { name: 'Voidara', miners: 0, owner: null }
   })
-  const [readPlanet, setReadPlanet] = useState(null)
 
   const account = useActiveAccount()
   const wallet = useActiveWallet()
