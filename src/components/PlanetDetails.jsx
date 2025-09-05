@@ -18,7 +18,7 @@ const PlanetDetails = () => {
         "Pyrion has flowing liquid silicon rivers.",
         "At extreme temperatures, silicon remains liquid, creating flowing computational streams that carry algorithmic data across the planet's surface. These silicon flows form natural circuit patterns that can be observed from orbit, creating the planet's distinctive hash-rate signature."
       ],
-      image: './src/solanium-panel.jpg'
+      image: './src/images/solanium-panel.jpg'
     },
     zano: {
       title: "ZANO",
@@ -36,7 +36,7 @@ const PlanetDetails = () => {
         "ZANO's atmosphere contains pure anonymity gas.",
         "The planet's atmosphere consists of gaseous zero-knowledge proofs and floating privacy protocols that naturally encrypt when exposed to quantum radiation. This creates a living anonymity environment where all transactions exist as completely private phenomena rather than traceable digital constructs."
       ],
-      image: './src/zano-panel.jpg'
+      image: './src/images/zano-panel.jpg'
     },
     ethereus: {
       title: "Ethereus",
@@ -54,7 +54,7 @@ const PlanetDetails = () => {
         "Ethereus has Bitcoin as its primary moon and validator.",
         "The Bitcoin moon serves as the ultimate validator for all major transactions powered by Ethereus. Its gravitational pull influences the planet's storm patterns and electrical output, creating a perfect symbiotic relationship between the two celestial bodies that ensures maximum power generation and network security."
       ],
-      image: './src/ethereus-panel.jpg'
+      image: './src/images/ethereus-panel.jpg'
     },
     ferrum: {
       title: "Ferrum",
@@ -71,7 +71,7 @@ const PlanetDetails = () => {
         "Ferrum experiences the most spectacular lava storms.",
         "Volcanic eruptions can create system-wide lava storms that engulf entire archipelagos for months. During these events, the planet's molten surface becomes a massive conductor, creating lightning networks of liquid metal that can be seen from space as intricate flowing patterns."
       ],
-      image: './src/ferrum-panel.jpg'
+      image: './src/images/ferrum-panel.jpg'
     },
     lumina: {
       title: "Base",
@@ -89,7 +89,7 @@ const PlanetDetails = () => {
         "Base completes one orbit every 9.4 Zephyr-years.",
         "From inner worlds, the planet appears to move slowly through stellar constellations, taking several months to traverse from one star pattern to another. Its gravitational influence affects the orbits of numerous smaller bodies throughout the outer system."
       ],
-      image: './src/lumina-panel.jpg'
+      image: './src/images/lumina-panel.jpg'
     },
     titanox: {
       title: "Ethereus",
@@ -107,7 +107,7 @@ const PlanetDetails = () => {
         "Ethereus completes one ether cycle every 23.7 Zephyr-years.",
         "The planet's orbital period determines the major ether crystal formation cycles in its rings. Every 23.7 years, the rings realign to create the 'Great Ether Storm,' a spectacular event where ether crystal precipitation increases by 1000%, visible as brilliant auroras throughout the system."
       ],
-      image: './src/titanox-panel.jpg'
+      image: './src/images/titanox-panel.jpg'
     },
     base: {
       title: "Solanium",
@@ -125,7 +125,7 @@ const PlanetDetails = () => {
         "Solanium's atmosphere is composed of pure transaction data.",
         "The data streams absorb network latency, which makes the planet appear to glow with a beautiful blue light. High-speed validation clouds drift through the upper atmosphere, processing thousands of transactions per second and creating spectacular light shows visible from across the system."
       ],
-      image: './src/base-panel.jpg'
+      image: './src/images/base-panel.jpg'
     },
     voidara: {
       title: "Voidara",
@@ -143,7 +143,7 @@ const PlanetDetails = () => {
         "Voidara exists in a state of quantum superposition.",
         "The planet simultaneously exists in multiple dimensional states, creating a unique phenomenon where it can be observed in different phases of matter depending on the quantum observation method used."
       ],
-      image: './src/voidara-panel.jpg'
+      image: './src/images/voidara-panel.jpg'
     }
   }
 

@@ -145,29 +145,29 @@ body label {
   cursor: pointer;
 }
 body label.solanium > .preview {
-  background: url("../src/solanium.jpg") !important;
+  background: url("../src/images/solanium.jpg") !important;
 }
 body label.zano > .preview {
-  background: url("../src/zano.jpg") !important;
+  background: url("../src/images/zano.jpg") !important;
 }
 body label.ethereus > .preview {
-  background: url("../src/ethereus.jpg") !important;
+  background: url("../src/images/ethereus.jpg") !important;
 }
 body label.ferrum > .preview {
-  background: url("../src/ferrum.jpg") !important;
+  background: url("../src/images/ferrum.jpg") !important;
 }
 body label.lumina > .preview {
-  background: url("../src/lumina.jpg") !important;
+  background: url("../src/images/lumina.jpg") !important;
 }
 body label.titanox > .preview {
-  background: url("../src/titanox.jpg") !important;
+  background: url("../src/images/titanox.jpg") !important;
 }
 
 body label.base > .preview {
-  background: url("../src/base2.jpg") !important;
+  background: url("../src/images/base2.jpg") !important;
 }
 body label.voidara > .preview {
-  background: url("../src/voidara.png") !important;
+  background: url("../src/images/voidara.png") !important;
 }
 body label.menu {
   color: white;
