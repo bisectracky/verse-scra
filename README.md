@@ -1,83 +1,23 @@
 # 🌌 Verse-Scra: Web3 Space Mining Game
 
-A blockchain-based space mining adventure where players explore the Zephyr System, mining resources from 8 unique planets through a decentralized lottery system powered by Chainlink VRF.
+A blockchain-based space mining game featuring 8 unique planets and a decentralized lottery system powered by Chainlink VRF.
 
 ## 🚀 Overview
 
-Verse-Scra is an immersive Web3 mining game where players embark on interplanetary expeditions across the Zephyr System. Each planet represents a different blockchain network with unique resources to mine. Players purchase mining operations (as NFTs) and use Chainlink's verifiable randomness to determine their rewards, ranging from 100 to 1,000,000 tokens. Every mining expedition guarantees some reward - it's not about if you'll find resources, but how much!
+Verse-Scra is a Web3 space-themed mining game where players can mine resources from 8 different planets. Players purchase mining operations (as NFTs) and use Chainlink's verifiable randomness to determine their rewards, ranging from 100 to 1,000,000 tokens. Every mining expedition guarantees some reward - it's not about if you'll find resources, but how much!
 
 ## 🎯 Features
 
-- **8 Unique Planets**: Each with distinct characteristics and mining opportunities
+- **Space Mining Theme**: Explore 8 unique planets in an immersive space environment
 - **Verifiable Randomness**: Chainlink VRF ensures provably fair reward distribution
 - **NFT Mining Tickets**: Every operation is minted as an NFT (ERC-721) for transparency
 - **Guaranteed Rewards**: Every mining operation yields resources - no empty expeditions!
 - **Multi-Chain Support**: Currently deployed on Polygon and Base networks
 - **Prize Tiers**: 8 different reward levels from 100 to 1,000,000 tokens
-- **Immersive 3D UI**: Interactive space environment with rotating planets and animations
+- **Beautiful 3D UI**: Interactive interface with rotating planets and smooth animations
 
-## 🪐 The Zephyr System Planets
-
-Explore the vast Zephyr System, where each planet offers unique mining opportunities:
-
-```mermaid
-graph TB
-    subgraph "The Zephyr System"
-        Sun[("☀️<br/>Central Star")]
-        
-        P1["⚡ Solanium<br/>Speed World<br/>Lightning Mining"]
-        P2["🌩️ Ethereus<br/>Storm World<br/>Contract Resources"]
-        P3["🌑 ZANO<br/>Stealth World<br/>Privacy Mining"]
-        P4["🌋 Ferrum<br/>Volcanic World<br/>Metal Resources"]
-        P5["🌊 Lumina<br/>Ocean World<br/>Ether Islands"]
-        P6["🌲 TITANOX<br/>Forest World<br/>Merkle Mining"]
-        P7["🐚 Base<br/>Foundation World<br/>Beginner Zone"]
-        P8["🌀 Voidara<br/>Quantum World<br/>High Risk/Reward"]
-        
-        Sun -.-> P1
-        Sun -.-> P2
-        Sun -.-> P3
-        Sun -.-> P4
-        Sun -.-> P5
-        Sun -.-> P6
-        Sun -.-> P7
-        Sun -.-> P8
-    end
-    
-    style Sun fill:#FFD700,stroke:#FFA500,stroke-width:3px
-    style P1 fill:#E6E6FA,stroke:#9370DB
-    style P2 fill:#87CEEB,stroke:#4682B4
-    style P3 fill:#2F4F4F,stroke:#000000
-    style P4 fill:#FF6347,stroke:#8B0000
-    style P5 fill:#00CED1,stroke:#008B8B
-    style P6 fill:#228B22,stroke:#006400
-    style P7 fill:#F0E68C,stroke:#BDB76B
-    style P8 fill:#9370DB,stroke:#4B0082
-```
-
-### 1. **Solanium** ⚡
-*The Speed World* - A planet of pure velocity where transactions process at lightning speed. Its surface crackles with energy networks that enable rapid resource extraction.
-
-### 2. **Ethereus** 🌩️
-*The Storm World* - A turbulent planet covered in perpetual electrical storms. The lightning networks here contain the most valuable smart contract resources.
-
-### 3. **ZANO** 🌑
-*The Stealth World* - A mysterious planet shrouded in darkness, specializing in privacy-focused mining operations. What happens on ZANO stays on ZANO.
-
-### 4. **Ferrum** 🌋
-*The Volcanic World* - A molten planet rich in metallic resources. Its volcanic forges produce some of the rarest tokens in the system.
-
-### 5. **Lumina** 🌊
-*The Ocean World* - A water world dotted with ether islands. The bioluminescent oceans hide vast token reserves beneath their waves.
-
-### 6. **TITANOX** 🌲
-*The Forest World* - A planet covered in digital forests with Merkle tree structures. Each tree's roots connect to deep resource pools.
-
-### 7. **Base** 🐚
-*The Foundation World* - The shell world that serves as the foundation for new explorers. Its stable environment makes it perfect for beginners.
-
-### 8. **Voidara** 🌀
-*The Quantum World* - A phase-shifting planet where reality bends. Its quantum mechanics enable the highest risk/reward mining operations.
+### 🪐 Available Planets
+The game features 8 planets to explore: `Solanium`, `Ethereus`, `ZANO`, `Ferrum`, `Lumina`, `TITANOX`, `Base`, and `Voidara` - each with unique visual designs and future gameplay potential.
 
 ## 📋 Deployed Contracts
 
@@ -191,7 +131,7 @@ graph LR
 
 ### The Mining Experience
 
-1. **Choose Your Planet**: Each planet in the Zephyr System offers unique mining opportunities. While currently all planets use the same prize structure, future updates will bring planet-specific resources and bonuses.
+1. **Choose Your Planet**: Each of the 8 planets offers unique visual themes and mining opportunities. While currently all planets use the same prize structure, future updates will bring planet-specific resources and bonuses.
 
 2. **Start Your Expedition**: Purchase a mining operation for 1 VERSE (Polygon) or 1 USDC (Base). This mints an NFT ticket representing your mining claim.
 
