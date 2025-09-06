@@ -49,7 +49,7 @@ const PlanetDetails = ({ account }) => {
                 const balance = await eth_getBalance(rpcRequest, {
                     address: account.address
                 })
-                
+
                 // Convert from wei to ETH (balance is in hex)
                 const balanceInWei = BigInt(balance)
                 const balanceInEth = Number(balanceInWei) / 1e18
@@ -413,7 +413,7 @@ const PlanetDetails = ({ account }) => {
                         <div className='panel'>
                             {/* Mining Resources Sidebar */}
                             <div className="mining-sidebar">
-                                <h2>Availabl Planet Resources</h2>
+                                <h2>Available Planet Resources</h2>
                                 <div className="resources-grid">
                                     {resources.resources.map((resource, idx) => (
                                         <div key={idx} className="resource-item">
