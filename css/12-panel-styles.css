@@ -69,7 +69,8 @@ body .panel h2 {
     font-size: 14px;
     text-transform: uppercase;
     font-weight: 700;
-    margin-top: 30px;
+    margin-top: 15px;
+    margin-bottom: 30px;
 }
 
 body .panel h2::after {
@@ -266,14 +267,14 @@ body .panel p {
 }
 
 .stat-label {
-    font-size: 12px;
-    color: #ccc;
+    font-size: 13px;
+    color: #cca;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
 .stat-value {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
     color: #fff;
 }
@@ -332,7 +333,6 @@ body .panel p {
             #0044ff 87%
         );
     background-origin: border-box;
-    background-clip: content-box, border-box;
     position: relative;
     border-width: 0px !important;
     margin: 10px 0;
@@ -389,7 +389,6 @@ body .panel p {
 .start-mining-btn:active {
     border: double 4px #fe53bb;
     background-origin: border-box;
-    background-clip: content-box, border-box;
     animation: none;
 }
 
