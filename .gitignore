@@ -171,4 +171,5 @@ dist
 # IntelliJ based IDEs
 .idea
 
-/lib/*
+/lib/
+/lib/*.env
