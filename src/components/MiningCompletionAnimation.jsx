@@ -135,10 +135,23 @@ const MiningCompletionAnimation = ({ isVisible, onClose, miningResults }) => {
                 </svg>
 
                 <div className="completion-message">
-                    {!isDone ? (
+                    {results.status === 'pending' ? (
+                        <>
+                            <h2>Transaction Confirmed!</h2>
+                            <p>Oracle is calculating your prize amount...</p>
+                            
+                            <div className="oracle-waiting">
+                                <div className="oracle-spinner"></div>
+                                <div className="oracle-info">
+                                    <div>Draw ID: #{results.drawId}</div>
+                                    <div className="oracle-timer">Please wait while we determine your rewards</div>
+                                </div>
+                            </div>
+                        </>
+                    ) : !isDone ? (
                         <>
                             <h2>Mining Operation Complete!</h2>
-                            <p>Resources have been successfully mined and are ready to collect.</p>
+                            <p>{results.message || 'Resources have been successfully mined and are ready to collect.'}</p>
 
                             <div className="mining-results">
                                 <div className="primary-reward">
@@ -147,7 +160,7 @@ const MiningCompletionAnimation = ({ isVisible, onClose, miningResults }) => {
                                     </div>
                                 </div>
 
-                                {results.secondaryTokens && results.secondaryTokens.length == 0 && (
+                                {results.secondaryTokens && results.secondaryTokens.length > 0 && (
                                     <div className="secondary-rewards">
                                         <div className="rewards-label">Additional Resources:</div>
                                         {results.secondaryTokens.map((token, index) => (

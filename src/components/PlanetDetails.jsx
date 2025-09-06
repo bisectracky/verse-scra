@@ -4,7 +4,7 @@ import MiningCompletionAnimation from './MiningCompletionAnimation'
 import { getRpcClient, eth_getBalance } from 'thirdweb/rpc'
 import { polygon } from 'thirdweb/chains'
 import { client, chains } from '../config/thirdweb'
-import { getContract, prepareContractCall, sendTransaction, waitForReceipt } from 'thirdweb'
+import { getContract, prepareContractCall, sendTransaction, waitForReceipt, readContract } from 'thirdweb'
 import { useActiveWallet, useSwitchActiveWalletChain } from 'thirdweb/react'
 import { PLANET_VRF_ADDRESS, PLANET_VRF_ABI, OPERATION_COST, DEFAULT_CHAIN } from '../config/contracts'
 
@@ -483,10 +483,91 @@ const PlanetDetails = ({ account }) => {
             console.log('Transaction confirmed:', receipt)
             setTxStatus('success')
 
-            // Generate mining results
-            const results = generateMiningResults(planetId)
-            setMiningResults(results)
+            // Extract drawId from the DrawRequest event
+            let drawId = null
+            
+            // Find the DrawRequest event in the logs
+            if (receipt.logs) {
+                for (const log of receipt.logs) {
+                    // DrawRequest event topic: 0x6438d905327051fd31a6b248bf430b0527939eccc69883f012652c797b39689d
+                    if (log.topics[0] === '0x6438d905327051fd31a6b248bf430b0527939eccc69883f012652c797b39689d') {
+                        // The drawId is in topics[1] - need to parse it from hex to decimal
+                        drawId = parseInt(log.topics[1], 16)
+                        console.log('DrawId extracted:', drawId)
+                        break
+                    }
+                }
+            }
+
+            if (!drawId && drawId !== 0) {
+                throw new Error('Failed to extract drawId from transaction')
+            }
+
+            // Show pending state while waiting for oracle
+            const pendingResults = {
+                primaryToken: {
+                    symbol: 'VERSE',
+                    amount: 'Calculating...'
+                },
+                secondaryTokens: [],
+                status: 'pending',
+                drawId: drawId
+            }
+            setMiningResults(pendingResults)
             setShowCompletionAnimation(true)
+
+            // Poll the contract for the actual prize amount every 2 seconds indefinitely
+            let prizeAmount = BigInt(0)
+            let pollAttempts = 0
+            
+            console.log('Polling for prize result...')
+            
+            // Keep polling until we get a positive prize amount
+            while (prizeAmount === 0n) {
+                try {
+                    prizeAmount = await readContract({
+                        contract,
+                        method: 'prizes',
+                        params: [BigInt(drawId)]
+                    })
+                    
+                    console.log(`Poll attempt ${pollAttempts + 1}: Prize amount = ${prizeAmount.toString()}`)
+                    
+                    if (prizeAmount > 0n) {
+                        // We got the prize!
+                        console.log('Prize confirmed!')
+                        break
+                    }
+                    
+                    // Wait 2 seconds before next poll
+                    await new Promise(resolve => setTimeout(resolve, 2000))
+                    pollAttempts++
+                } catch (error) {
+                    console.error('Error reading prize (will retry):', error)
+                    // Continue polling even on error
+                    await new Promise(resolve => setTimeout(resolve, 2000))
+                    pollAttempts++
+                }
+            }
+
+            // Convert prize amount from Wei to VERSE tokens (assuming 18 decimals)
+            const prizeInVerse = Number(prizeAmount) / 1e18
+
+            // Update with actual prize results - now we show the completion screen
+            const actualResults = {
+                primaryToken: {
+                    symbol: 'VERSE',
+                    amount: prizeInVerse.toLocaleString(undefined, { maximumFractionDigits: 2 })
+                },
+                secondaryTokens: [],
+                status: 'confirmed',
+                drawId: drawId,
+                rawPrizeAmount: prizeAmount.toString(),
+                message: 'Congratulations! Your mining operation was successful!'
+            }
+            
+            setMiningResults(actualResults)
+            console.log('Mining operation completed with prize:', prizeInVerse, 'VERSE')
 
         } catch (error) {
             console.error('Mining operation failed:', error)
@@ -505,38 +586,10 @@ const PlanetDetails = ({ account }) => {
         }
     }
 
+    // This function is no longer needed as we get real prizes from the contract
     const generateMiningResults = (planetId) => {
-        // Generate random amounts based on planet difficulty and resources
-        const baseAmounts = {
-            solanium: { verse: 25000, tbtc: 0.18, pol: 500, dai: 1300 },
-            zano: { verse: 15000, tbtc: 0.08, pol: 300, dai: 800 },
-            ethereus: { verse: 35000, tbtc: 0.25, pol: 700, dai: 1800 },
-            ferrum: { verse: 22000, tbtc: 0.15, pol: 450, dai: 1200 },
-            lumina: { verse: 18000, tbtc: 0.12, pol: 350, dai: 900 },
-            titanox: { verse: 30000, tbtc: 0.22, pol: 600, dai: 1500 },
-            base: { verse: 40000, tbtc: 0.35, pol: 800, dai: 2000 },
-            voidara: { verse: 12000, tbtc: 0.05, pol: 200, dai: 500 }
-        }
-
-        const amounts = baseAmounts[planetId] || baseAmounts.solanium
-
-        // Add some randomness (±20%)
-        const randomize = (amount) => {
-            const variation = 0.8 + Math.random() * 0.4 // 0.8 to 1.2
-            return Math.floor(amount * variation)
-        }
-
-        return {
-            primaryToken: {
-                symbol: 'VERSE',
-                amount: randomize(amounts.verse).toLocaleString()
-            },
-            secondaryTokens: [
-                { symbol: 'tBTC', amount: (amounts.tbtc * (0.8 + Math.random() * 0.4)).toFixed(2) },
-                { symbol: 'POL', amount: randomize(amounts.pol).toLocaleString() },
-                { symbol: 'DAI', amount: randomize(amounts.dai).toLocaleString() }
-            ]
-        }
+        // Not used anymore - prizes come from the blockchain
+        return null
     }
 
     const handleCloseCompletionAnimation = () => {

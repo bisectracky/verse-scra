@@ -105,6 +105,25 @@ export const PLANET_VRF_ABI = [
             }
         ],
         "anonymous": false
+    },
+    {
+        "type": "function",
+        "name": "prizes",
+        "inputs": [
+            {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "stateMutability": "view"
     }
 ]
 
