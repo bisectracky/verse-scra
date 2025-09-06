@@ -1,0 +1,101 @@
+.confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 999;
+    overflow: hidden;
+}
+
+.confetti-particle {
+    position: absolute;
+    border-radius: 2px;
+    animation: confetti-fall linear forwards;
+    animation-fill-mode: both;
+}
+
+@keyframes confetti-fall {
+    0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* Faster confetti animation for immediate visibility */
+.confetti-particle {
+    animation-duration: 2s; /* Faster fall speed */
+}
+
+/* Collection success confetti */
+.collection-confetti {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    pointer-events: none;
+}
+
+.collection-confetti .confetti-particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: collection-burst 1.5s ease-out forwards;
+}
+
+@keyframes collection-burst {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--random-x, 0), var(--random-y, 0)) scale(0);
+        opacity: 0;
+    }
+}
+
+/* Success sparkle effect */
+.success-sparkle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    pointer-events: none;
+}
+
+.sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #fff;
+    border-radius: 50%;
+    animation: sparkle-twinkle 1s ease-in-out infinite;
+}
+
+.sparkle:nth-child(1) { top: 20%; left: 20%; animation-delay: 0s; }
+.sparkle:nth-child(2) { top: 30%; right: 20%; animation-delay: 0.2s; }
+.sparkle:nth-child(3) { bottom: 30%; left: 30%; animation-delay: 0.4s; }
+.sparkle:nth-child(4) { bottom: 20%; right: 30%; animation-delay: 0.6s; }
+.sparkle:nth-child(5) { top: 50%; left: 10%; animation-delay: 0.8s; }
+.sparkle:nth-child(6) { top: 50%; right: 10%; animation-delay: 1s; }
+
+@keyframes sparkle-twinkle {
+    0%, 100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

@@ -1,26 +1,26 @@
 body .solar_systm .planet.solanium {
-  background: url("../src/solanium.jpg");
+  background: url("../src/images/solanium.jpg");
   box-shadow: 0 -590px 150px black inset, 0 0px 130px 40px rgba(234, 205, 199, 0.6) inset, 0 0px 23px 4px rgba(234, 205, 199, 0.6) inset, 0 -10px 130px rgba(188, 143, 127, 0.6);
 }
 body .solar_systm .planet.zano {
-  background: url("../src/zano.jpg");
+  background: url("../src/images/zano.jpg");
   box-shadow: 0 -590px 150px black inset, 0 0px 130px 40px #ffcb9c inset, 0 0px 23px 4px #ffcb9c inset, 0 -10px 130px #b85a07;
 }
 body .solar_systm .planet.ethereus {
-  background: url("../src/ethereus.jpg");
+  background: url("../src/images/ethereus.jpg");
   box-shadow: 0 -590px 150px black inset, 0 0px 130px 40px #8cbaff inset, 0 0px 23px 4px #8cbaff inset, 0 -10px 130px #7894a9;
 }
 body .solar_systm .planet.ethereus .trajectory.m {
   width: 1500px;
   height: 1500px;
   left: -150px;
-  top: -110px;
+  top: -125px;
 }
 body .solar_systm .planet.ethereus .moon {
   left: 800px;
   top: -160px;
   transform: scale(0.45);
-  background: url("../src/bitcoin.jpg");
+  background: url("../src/images/bitcoin.jpg");
   z-index: -1;
   box-shadow: 0px -30px 30px 10px black inset;
 }
@@ -28,7 +28,7 @@ body .solar_systm .planet.ethereus .moon h3 {
   color: #26daaa;
 }
 body .solar_systm .planet.ferrum {
-  background: url("../src/ferrum.jpg");
+  background: url("../src/images/ferrum.jpg");
   box-shadow: 0 -590px 150px black inset, 0 0px 130px 40px #e86363 inset, 0 0px 23px 4px #e86363 inset, 0 -10px 130px #6b261a;
 }
 body .solar_systm .planet.ferrum .moon h3 {
@@ -38,7 +38,7 @@ body .solar_systm .planet.ferrum .deimos {
   left: 900px;
   top: -100px;
   transform: scale(0.45);
-  background: url("../src/lumina.jpg");
+  background: url("../src/images/lumina.jpg");
   z-index: -1;
   box-shadow: 0px -30px 30px 10px black inset;
 }
@@ -58,12 +58,12 @@ body .solar_systm .planet.ferrum .phoebos {
   left: 100px;
   top: -160px;
   transform: scale(0.5);
-  background: url("../src/lumina.jpg");
+  background: url("../src/images/lumina.jpg");
   z-index: -1;
   box-shadow: 0px -30px 30px 10px black inset;
 }
 body .solar_systm .planet.lumina {
-  background: url("../src/lumina.jpg");
+  background: url("../src/images/lumina.jpg");
   box-shadow: 0 -590px 150px black inset, 0 0px 130px 40px rgba(234, 205, 199, 0.6) inset, 0 0px 23px 4px rgba(234, 205, 199, 0.6) inset, 0 -10px 130px rgba(188, 143, 127, 0.6);
 }
 body .solar_systm .planet.lumina .moon h3 {
@@ -91,7 +91,7 @@ body .solar_systm .planet.lumina .lo {
   left: 100px;
   top: -100px;
   transform: scale(0.4);
-  background: url("../src/linkara.jpg");
+  background: url("../src/images/linkara.jpg");
   z-index: -1;
   box-shadow: 0px -30px 30px 10px black inset;
 }
@@ -99,7 +99,7 @@ body .solar_systm .planet.lumina .europa {
   left: 400px;
   top: -210px;
   transform: scale(0.45);
-  background: url("../src/swapius.jpg");
+  background: url("../src/images/swapius.jpg");
   z-index: -1;
   box-shadow: 0px -30px 30px 10px black inset;
 }
@@ -107,12 +107,12 @@ body .solar_systm .planet.lumina .ganymede {
   left: 900px;
   top: -70px;
   transform: scale(0.4);
-  background: url("../src/colossus.jpg");
+  background: url("../src/images/colossus.jpg");
   z-index: -1;
   box-shadow: 0px -30px 30px 10px black inset;
 }
 body .solar_systm .planet.titanox {
-  background: url("../src/titanox.jpg");
+  background: url("../src/images/titanox.jpg");
   box-shadow: 0 -590px 150px black inset, 0 0px 130px 40px rgba(234, 205, 199, 0.6) inset, 0 0px 23px 4px rgba(234, 205, 199, 0.6) inset, 0 -10px 130px rgba(188, 143, 127, 0.6);
 }
 body .solar_systm .planet.titanox .moon h3 {
@@ -140,7 +140,7 @@ body .solar_systm .planet.titanox .titan {
   left: 100px;
   top: -100px;
   transform: scale(0.4);
-  background: url("../src/avalon.png");
+  background: url("../src/images/avalon.png");
   z-index: -1;
   box-shadow: 0px -30px 30px 10px black inset;
 }
@@ -148,7 +148,7 @@ body .solar_systm .planet.titanox .dione {
   left: 400px;
   top: -210px;
   transform: scale(0.45);
-  background: url("../src/lumenis.jpg");
+  background: url("../src/images/lumenis.jpg");
   z-index: -1;
   box-shadow: 0px -30px 30px 10px black inset;
 }
@@ -156,13 +156,13 @@ body .solar_systm .planet.titanox .enceladus {
   left: 900px;
   top: -70px;
   transform: scale(0.4);
-  background: url("../src/crysta.jpg");
+  background: url("../src/images/crysta.jpg");
   z-index: -1;
   box-shadow: 0px -30px 30px 10px black inset;
 }
 
 body .solar_systm .planet.base {
-  background: url("../src/base2.jpg");
+  background: url("../src/images/base2.jpg");
   box-shadow: 0 -590px 150px black inset, 0 0px 130px 40px rgba(234, 205, 199, 0.6) inset, 0 0px 23px 4px rgba(234, 205, 199, 0.6) inset, 0 -10px 130px #2d4153;
 }
 body .solar_systm .planet.base .moon h3 {
@@ -190,7 +190,7 @@ body .solar_systm .planet.base .triton {
   left: 100px;
   top: -100px;
   transform: scale(0.4);
-  background: url("../src/glacius.png");
+  background: url("../src/images/glacius.png");
   z-index: -1;
   box-shadow: 0px -30px 30px 10px black inset;
 }
@@ -198,7 +198,7 @@ body .solar_systm .planet.base .proteus {
   left: 400px;
   top: -210px;
   transform: scale(0.45);
-  background: url("../src/shard.jpg");
+  background: url("../src/images/shard.jpg");
   z-index: -1;
   box-shadow: 0px -30px 30px 10px black inset;
 }
@@ -206,12 +206,12 @@ body .solar_systm .planet.base .nereid {
   left: 900px;
   top: -70px;
   transform: scale(0.4);
-  background: url("../src/echo.jpg");
+  background: url("../src/images/echo.jpg");
   z-index: -1;
   box-shadow: 0px -30px 30px 10px black inset;
 }
 body .solar_systm .planet.voidara {
-  background: url("../src/voidara.png");
+  background: url("../src/images/voidara.png");
   box-shadow: 0 -590px 150px black inset, 0 0px 130px 40px rgba(234, 205, 199, 0.6) inset, 0 0px 23px 4px rgba(234, 205, 199, 0.6) inset, 0 -10px 130px #2d4153;
 }
 body .solar_systm .planet_description {
