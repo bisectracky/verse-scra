@@ -302,3 +302,21 @@ body.mining-completion-active .mining-sidebar {
     content: '';
     animation: dots 1.5s infinite;
 }
+
+/* Transaction status */
+.tx-status {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.tx-status .tx-link {
+    color: #00BCD4;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.tx-status .tx-link:hover {
+    color: #00E5FF;
+    text-decoration: underline;
+}

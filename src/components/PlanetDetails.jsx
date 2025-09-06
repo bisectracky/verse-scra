@@ -622,6 +622,7 @@ const PlanetDetails = ({ account }) => {
                 isVisible={showCompletionAnimation}
                 onClose={handleCloseCompletionAnimation}
                 miningResults={miningResults}
+                account={account}
             />
             {planetNames.map(planetId => {
                 // const details = planetDetails[planetId]

@@ -124,6 +124,39 @@ export const PLANET_VRF_ABI = [
             }
         ],
         "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "claimPrize",
+        "inputs": [
+            {
+                "name": "_operationId",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "error",
+        "name": "AlreadyClaimed",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "InvalidId",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "NotMaster",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "ZeroAddress",
+        "inputs": []
     }
 ]
 

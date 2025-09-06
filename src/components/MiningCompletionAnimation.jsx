@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import './MiningCompletionAnimation.css'
 import Confetti from './Confetti'
+import { getContract, prepareContractCall, sendTransaction, waitForReceipt } from 'thirdweb'
+import { polygon } from 'thirdweb/chains'
+import { client } from '../config/thirdweb'
+import { PLANET_VRF_ADDRESS, PLANET_VRF_ABI } from '../config/contracts'
 
-const MiningCompletionAnimation = ({ isVisible, onClose, miningResults }) => {
+const MiningCompletionAnimation = ({ isVisible, onClose, miningResults, account }) => {
     const [isCollecting, setIsCollecting] = useState(false)
     const [isDone, setIsDone] = useState(false)
     const [showInitialConfetti, setShowInitialConfetti] = useState(false)
     const [showCollectionConfetti, setShowCollectionConfetti] = useState(false)
+    const [claimTxHash, setClaimTxHash] = useState(null)
 
     // Default mining results if none provided
     const defaultResults = {
@@ -40,25 +45,91 @@ const MiningCompletionAnimation = ({ isVisible, onClose, miningResults }) => {
             setIsCollecting(false)
             setIsDone(false)
             setShowCollectionConfetti(false)
+            setClaimTxHash(null)
             // Start confetti immediately when modal becomes visible
             setShowInitialConfetti(true)
         }
     }, [isVisible])
 
-    const handleCollect = () => {
-        setIsCollecting(true)
-        setShowCollectionConfetti(true)
+    const handleCollect = async () => {
+        if (!account || !results.drawId) {
+            console.error('Missing account or drawId')
+            return
+        }
 
-        // Simulate collection transaction
-        setTimeout(() => {
+        setIsCollecting(true)
+        
+        try {
+            // Get the contract instance
+            const contract = getContract({
+                client,
+                chain: polygon,
+                address: PLANET_VRF_ADDRESS,
+                abi: PLANET_VRF_ABI
+            })
+
+            // Prepare the claim transaction
+            const transaction = prepareContractCall({
+                contract,
+                method: 'claimPrize',
+                params: [BigInt(results.drawId)]
+            })
+
+            // Send the transaction
+            console.log('Claiming prize for drawId:', results.drawId)
+            const { transactionHash } = await sendTransaction({
+                account,
+                transaction
+            })
+
+            console.log('Claim transaction sent:', transactionHash)
+            setClaimTxHash(transactionHash)
+
+            // Wait for transaction receipt
+            const receipt = await waitForReceipt({
+                client,
+                chain: polygon,
+                transactionHash
+            })
+
+            console.log('Prize claimed successfully:', receipt)
+            
+            // Show success animation
+            setShowCollectionConfetti(true)
             setIsCollecting(false)
             setIsDone(true)
-        }, 2000)
+            
+        } catch (error) {
+            console.error('Failed to claim prize:', error)
+            setIsCollecting(false)
+            
+            // Show user-friendly error message based on error type
+            if (error.name === 'ContractFunctionExecutionError') {
+                // Check for specific contract errors
+                const errorMessage = error.message || ''
+                
+                if (errorMessage.includes('AlreadyClaimed') || errorMessage.includes('0x81b5ad68')) {
+                    alert('This prize has already been claimed.')
+                } else if (errorMessage.includes('InvalidId')) {
+                    alert('Invalid operation ID. This prize does not exist.')
+                } else if (errorMessage.includes('NotMaster')) {
+                    alert('You are not authorized to claim this prize.')
+                } else {
+                    alert('Failed to claim prize. The transaction was reverted by the contract.')
+                }
+            } else if (error.message?.includes('user rejected') || error.message?.includes('User rejected')) {
+                // User cancelled, just return to normal state
+                console.log('User cancelled the transaction')
+            } else {
+                alert(`Failed to claim prize: ${error.message || 'Unknown error'}`)
+            }
+        }
     }
 
     const handleDone = () => {
         setIsCollecting(false)
         setIsDone(false)
+        setClaimTxHash(null)
         onClose()
     }
 
@@ -186,11 +257,24 @@ const MiningCompletionAnimation = ({ isVisible, onClose, miningResults }) => {
                                     `Collect ${results.primaryToken.amount} ${results.primaryToken.symbol}`
                                 )}
                             </button>
+                            
+                            {claimTxHash && isCollecting && (
+                                <div className="tx-status">
+                                    <a 
+                                        href={`https://polygonscan.com/tx/${claimTxHash}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="tx-link"
+                                    >
+                                        View transaction on PolygonScan
+                                    </a>
+                                </div>
+                            )}
                         </>
                     ) : (
                         <>
                             <h2>Resources Collected!</h2>
-                            <p>All resources have been successfully transferred to your wallet.</p>
+                            <p>{results.primaryToken.amount} {results.primaryToken.symbol} has been successfully transferred to your wallet!</p>
 
                             <div className="success-icon">
                                 <div className="checkmark">✓</div>
@@ -203,6 +287,19 @@ const MiningCompletionAnimation = ({ isVisible, onClose, miningResults }) => {
                                     <div className="sparkle"></div>
                                 </div>
                             </div>
+
+                            {claimTxHash && (
+                                <div className="tx-status">
+                                    <a 
+                                        href={`https://polygonscan.com/tx/${claimTxHash}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="tx-link"
+                                    >
+                                        View transaction on PolygonScan
+                                    </a>
+                                </div>
+                            )}
 
                             <button className="done-btn" onClick={handleDone}>
                                 Done
