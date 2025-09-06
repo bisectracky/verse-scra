@@ -2,12 +2,26 @@ import React, { useState } from 'react'
 import minerIcon from '../images/miner.png'
 import MiningCompletionAnimation from './MiningCompletionAnimation'
 
-// Token icons - using placeholder paths for now
+// Import token icons
+import verseIcon from '../images/tokens/verse.png'
+import btcIcon from '../images/tokens/btc.png'
+import polIcon from '../images/tokens/pol.png'
+import daiIcon from '../images/tokens/dai.png'
+
+// Token icons mapping
 const tokenIcons = {
-    'VERSE': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTIiIGZpbGw9IiM0Q0FGNTIiLz4KPHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+VjwvdGV4dD4KPC9zdmc+',
-    'tBTC': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTIiIGZpbGw9IiNGRjk4MDAiLz4KPHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+QjwvdGV4dD4KPC9zdmc+',
-    'POL': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTIiIGZpbGw9IiM4MjQ3RTUiLz4KPHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+UDwvdGV4dD4KPC9zdmc+',
-    'DAI': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTIiIGZpbGw9IiNGQkY5MDAiLz4KPHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+RDwvdGV4dD4KPC9zdmc+'
+    'VERSE': verseIcon,
+    'tBTC': btcIcon,
+    'POL': polIcon,
+    'DAI': daiIcon
+}
+
+// Token contract addresses (example addresses - replace with actual ones)
+const tokenContracts = {
+    'VERSE': '0x249ca82617ec3dfb2589c4c17ab7ec9765350a18',
+    'tBTC': '0x8dAEBADE922dF735c38C80C7eBD708Af50815fAa',
+    'POL': '0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0',
+    'DAI': '0x6B175474E89094C44Da98b954EedeAC495271d0F'
 }
 
 const PlanetDetails = () => {
@@ -277,7 +291,7 @@ const PlanetDetails = () => {
         // Simulate mining process with loading states
         setTimeout(() => {
             setIsMining(false)
-            
+
             // Generate random mining results based on planet
             const results = generateMiningResults(planetId)
             setMiningResults(results)
@@ -299,7 +313,7 @@ const PlanetDetails = () => {
         }
 
         const amounts = baseAmounts[planetId] || baseAmounts.solanium
-        
+
         // Add some randomness (±20%)
         const randomize = (amount) => {
             const variation = 0.8 + Math.random() * 0.4 // 0.8 to 1.2
@@ -307,9 +321,9 @@ const PlanetDetails = () => {
         }
 
         return {
-            primaryToken: { 
-                symbol: 'VERSE', 
-                amount: randomize(amounts.verse).toLocaleString() 
+            primaryToken: {
+                symbol: 'VERSE',
+                amount: randomize(amounts.verse).toLocaleString()
             },
             secondaryTokens: [
                 { symbol: 'tBTC', amount: (amounts.tbtc * (0.8 + Math.random() * 0.4)).toFixed(2) },
@@ -345,7 +359,7 @@ const PlanetDetails = () => {
 
     return (
         <>
-            <MiningCompletionAnimation 
+            <MiningCompletionAnimation
                 isVisible={showCompletionAnimation}
                 onClose={handleCloseCompletionAnimation}
                 miningResults={miningResults}
@@ -363,20 +377,37 @@ const PlanetDetails = () => {
                         <div className='panel'>
                             {/* Mining Resources Sidebar */}
                             <div className="mining-sidebar">
-                                <h2>Select Planet Resources</h2>
-
+                                <h2>Availabl Planet Resources</h2>
                                 <div className="resources-grid">
                                     {resources.resources.map((resource, idx) => (
                                         <div key={idx} className="resource-item">
                                             <div className="resource-header">
-                                                <div className="resource-symbol-container">
-                                                    <img
-                                                        src={tokenIcons[resource.symbol]}
-                                                        alt={resource.symbol}
-                                                        className="token-icon"
-                                                    />
-                                                    <span className="resource-symbol">{resource.symbol}</span>
+                                                <span className="resource-symbol">{resource.symbol}</span>
+                                                <a
+                                                    href={`https://etherscan.io/address/${tokenContracts[resource.symbol]}`}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="contract-link"
+                                                    title="View Contract on Etherscan"
+                                                >
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                                        <polyline points="15 3 21 3 21 9"/>
+                                                        <line x1="10" y1="14" x2="21" y2="3"/>
+                                                    </svg>
+                                                </a>
+                                            </div>
+                                            <div className="resource-info">
+                                                <img
+                                                    src={tokenIcons[resource.symbol]}
+                                                    alt={resource.symbol}
+                                                    className="token-icon"
+                                                />
+                                                <div className="resource-amount">
+                                                    {resource.amount} <span className="resource-price">({resource.price})</span>
                                                 </div>
+                                            </div>
+                                            <div className="resource-rarity-row">
                                                 <span
                                                     className="resource-rarity"
                                                     style={{ color: getRarityColor(resource.rarity) }}
@@ -384,8 +415,6 @@ const PlanetDetails = () => {
                                                     {resource.rarity}
                                                 </span>
                                             </div>
-                                            <div className="resource-amount">{resource.amount}</div>
-                                            <div className="resource-price">{resource.price}</div>
                                         </div>
                                     ))}
                                 </div>
@@ -394,21 +423,6 @@ const PlanetDetails = () => {
                                     <div className="stat-item">
                                         <span className="stat-label">Your ETH Balance:</span>
                                         <span className="stat-value balance">0.06193 ETH</span>
-                                    </div>
-
-                                    <div className="stat-item">
-                                        <span className="stat-label">Your Verse Balance:</span>
-                                        <span className="stat-value balance">0.06193 ETH</span>
-                                    </div>
-
-                                    <div className="stat-item">
-                                        <span className="stat-label">Crew Requirement:</span>
-                                        <span className="stat-value crew">0 Voyagers</span>
-                                    </div>
-
-                                    <div className="stat-item">
-                                        <span className="stat-label">Experience Requirement:</span>
-                                        <span className="stat-value experience">1,234 XP</span>
                                     </div>
 
                                     <div className="stat-item">

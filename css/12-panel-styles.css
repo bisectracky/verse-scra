@@ -74,7 +74,8 @@ body .panel h2 {
 
 body .panel h2::after {
     width: 30px;
-    height: 2px;
+    height: 0px;
+    display: none;
     background: black;
     display: block;
     content: "";
@@ -130,87 +131,116 @@ body .panel p {
 .resources-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    gap: 16px;
     margin-bottom: 25px;
 }
 
 .resource-item {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    padding: 14px;
+    border-radius: 12px;
+    padding: 18px 18px;
     transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
-    min-height: 80px;
+    min-height: 100px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .resource-item:hover {
     background: rgba(255, 255, 255, 0.08);
     border-color: rgba(255, 255, 255, 0.2);
     transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .resource-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
-    min-height: 24px;
-    width: 100%;
-    gap: 8px;
+    justify-content: space-between;
+    margin-bottom: 12px;
 }
 
-.resource-symbol-container {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex: 1;
-    min-width: 0;
-}
+/* Removed resource-symbol-container - no longer needed */
 
 .token-icon {
-    width: 20px;
+    width: 20px !important;
     height: 20px;
-    border-radius: 50%;
     flex-shrink: 0;
     display: block;
+    object-fit: contain;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+}
+
+.resource-item:hover .token-icon {
+    transform: scale(1.1);
 }
 
 .resource-symbol {
-    font-weight: 700;
+    font-weight: 600;
     color: #fff;
-    font-size: 14px;
-    line-height: 1.2;
+    font-size: 16px;
+    line-height: 1;
     white-space: nowrap;
     flex-shrink: 0;
+    letter-spacing: 0.3px;
+}
+
+/* Resource rarity row */
+.resource-rarity-row {
+    margin-top: 11px;
+    padding-top: 11px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .resource-rarity {
-    font-size: 9px;
-    font-weight: 600;
+    font-size: 12px;
+    font-weight: 700;
     text-transform: uppercase;
-    padding: 3px 8px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.15);
-    white-space: nowrap;
-    flex-shrink: 0;
-    line-height: 1;
+    letter-spacing: 1px;
+    opacity: 0.9;
+    text-shadow: 0 0 10px currentColor;
 }
 
 .resource-amount {
     font-size: 16px;
-    font-weight: 600;
-    color: #4CAF50;
-    margin-bottom: 6px;
-    line-height: 1.2;
+    font-weight: 500;
+    color: #fff;
+    line-height: 1;
 }
 
 .resource-price {
-    font-size: 12px;
-    color: #ccc;
-    line-height: 1.2;
-    margin-top: auto;
+    font-size: 16px;
+    color: #808080;
+    font-weight: 400;
+}
+
+/* Contract link */
+.contract-link {
+    color: #666;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.contract-link:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.contract-link svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* Resource info group */
+.resource-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 /* Mining Stats */
