@@ -9,8 +9,7 @@ import "./vrf/VRFConsumerBaseV2.sol";
 import "./vrf/VRFCoordinatorV2Interface.sol";
 
 error InvalidCost();
-error TooManyTickets();
-error TooManyReceivers();
+error TooManyOperations();
 
 abstract contract CommonVRF is TokenHelper, Pausable, VRFConsumerBaseV2 {
 
