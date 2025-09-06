@@ -173,3 +173,14 @@ dist
 
 /lib/
 /lib/*.env
+/forge-cache/
+broadcast/
+out/
+cache/
+cache.db
+cache.db-shm
+cache.db-wal
+cache.db-journal
+cache.db-lock
+cache.db-lock-shm
+cache.db-lock-wal
