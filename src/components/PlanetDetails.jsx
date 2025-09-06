@@ -1,6 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import minerIcon from '../images/miner.png'
 import MiningCompletionAnimation from './MiningCompletionAnimation'
+import { getRpcClient, eth_getBalance } from 'thirdweb/rpc'
+import { ethereum } from 'thirdweb/chains'
+import { client } from '../config/thirdweb'
 
 // Import token icons
 import verseIcon from '../images/tokens/verse.png'
@@ -24,10 +27,43 @@ const tokenContracts = {
     'DAI': '0x6B175474E89094C44Da98b954EedeAC495271d0F'
 }
 
-const PlanetDetails = () => {
+const PlanetDetails = ({ account }) => {
     const [isMining, setIsMining] = useState(false)
     const [showCompletionAnimation, setShowCompletionAnimation] = useState(false)
     const [miningResults, setMiningResults] = useState(null)
+    const [ethBalance, setEthBalance] = useState('0')
+    const [isLoadingBalance, setIsLoadingBalance] = useState(false)
+
+    // Fetch ETH balance when account changes
+    useEffect(() => {
+        const fetchBalance = async () => {
+            if (!account || !account.address) {
+                setEthBalance('0')
+                setIsLoadingBalance(false)
+                return
+            }
+
+            setIsLoadingBalance(true)
+            try {
+                const rpcRequest = getRpcClient({ client, chain: ethereum })
+                const balance = await eth_getBalance(rpcRequest, {
+                    address: account.address
+                })
+                
+                // Convert from wei to ETH (balance is in hex)
+                const balanceInWei = BigInt(balance)
+                const balanceInEth = Number(balanceInWei) / 1e18
+                setEthBalance(balanceInEth.toFixed(5))
+            } catch (error) {
+                console.error('Error fetching ETH balance:', error)
+                setEthBalance('0')
+            } finally {
+                setIsLoadingBalance(false)
+            }
+        }
+
+        fetchBalance()
+    }, [account])
 
     // Resource data for each planet
     const planetResources = {
@@ -422,7 +458,9 @@ const PlanetDetails = () => {
                                 <div className="mining-stats">
                                     <div className="stat-item">
                                         <span className="stat-label">Your ETH Balance:</span>
-                                        <span className="stat-value balance">0.06193 ETH</span>
+                                        <span className="stat-value balance">
+                                            {!account ? 'Connect Wallet' : isLoadingBalance ? 'Loading...' : `${ethBalance} ETH`}
+                                        </span>
                                     </div>
 
                                     <div className="stat-item">

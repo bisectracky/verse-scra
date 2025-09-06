@@ -130,7 +130,7 @@ const App = () => {
         isWalletConnected={!!account}
       />
 
-      <PlanetDetails />
+      <PlanetDetails account={account} />
       </div>
     </ErrorBoundary>
   )
