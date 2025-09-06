@@ -10,6 +10,8 @@ error ZeroAddress();
 error NotEnoughFunds();
 
 contract PlanetVRF is PlanetNFT, CommonVRF {
+    // ETH price for operations (0.0001 ETH)
+    uint256 public constant ETH_OPERATION_COST = 0.0001 ether;
 
     constructor(
         string memory _name,
@@ -48,6 +50,21 @@ contract PlanetVRF is PlanetNFT, CommonVRF {
         );
     }
 
+    /**
+     * @notice Allows to purchase planet operation as NFT using ETH.
+     */
+    function startOperationETH()
+        external
+        payable
+        whenNotPaused
+    {
+        require(msg.value == ETH_OPERATION_COST, "Incorrect ETH amount");
+
+        _drawOperationRequest(
+            msg.sender
+        );
+    }
+
     function _newOperation(
         address _receiver
     )
@@ -81,6 +98,41 @@ contract PlanetVRF is PlanetNFT, CommonVRF {
             VERSE_TOKEN,
             baseCost * _operationCount
         );
+
+        uint256 i;
+
+        while (i < _operationCount) {
+            _drawOperationRequest(
+                _receiver
+            );
+            unchecked {
+                ++i;
+            }
+        }
+    }
+
+    /**
+     * @notice Allows to bulk purchase planet operations using ETH.
+     * @param _receiver The address that will receive the NFTs
+     * @param _operationCount Number of operations to purchase
+     */
+    function bulkPurchaseETH(
+        address _receiver,
+        uint256 _operationCount
+    )
+        external
+        payable
+        whenNotPaused
+    {
+        if (_operationCount == 0) {
+            revert ZeroTickts();
+        }
+
+        if (_operationCount > MAX_LOOPS) {
+            revert TooManyOperations();
+        }
+
+        require(msg.value == ETH_OPERATION_COST * _operationCount, "Incorrect ETH amount");
 
         uint256 i;
 
@@ -285,5 +337,30 @@ contract PlanetVRF is PlanetNFT, CommonVRF {
             SUBSCRIPTION_ID,
             _oldConsumer
         );
+    }
+
+    /**
+     * @notice Allows owner to withdraw collected ETH from operations
+     * @param _to Address to send the ETH to
+     * @param _amount Amount of ETH to withdraw
+     */
+    function withdrawETH(
+        address payable _to,
+        uint256 _amount
+    )
+        external
+        onlyOwner
+    {
+        if (_to == address(0)) {
+            revert ZeroAddress();
+        }
+
+        uint256 balance = address(this).balance;
+        if (_amount > balance) {
+            revert NotEnoughFunds();
+        }
+
+        (bool success, ) = _to.call{value: _amount}("");
+        require(success, "ETH transfer failed");
     }
 }

@@ -12,6 +12,9 @@
     "deploy:counter:polygon:slow": "forge script script/DeployCounter.s.sol:DeployCounter --with-gas-price 99000000000 --slow --broadcast --legacy --verify --chain-id=137 --rpc-url polygon",
     "deploy:planetrouter:polygon": "forge script script/DeployPlanetRouter.s.sol:DeployPlanetRouter --broadcast --legacy --verify --chain-id=137 --rpc-url polygon",
     "deploy:planetrouter:mainnet": "forge script script/DeployPlanetRouter.s.sol:DeployPlanetRouter --broadcast --legacy --verify --chain-id=1 --rpc-url mainnet",
+    "deploy:planetvrf:polygon": "forge script script/DeployPlanetVRF.s.sol:DeployPlanetVRF --broadcast --legacy --verify --chain-id=137 --rpc-url polygon",
+    "deploy:planetvrf:base": "forge script script/DeployPlanetVRF.s.sol:DeployPlanetVRF --broadcast --legacy --verify --chain-id=8453 --rpc-url base",
+    "deploy:counter:base": "forge script script/DeployCounter.s.sol:DeployCounter --broadcast --legacy --verify --chain-id=8453 --rpc-url base",
     "test:counter:polygon": "forge script script/DeployCounter.s.sol:DeployCounter --chain-id=137 --rpc-url polygon",
     "forge:build": "forge build",
     "forge:test": "forge test"
