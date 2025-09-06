@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react'
 import minerIcon from '../images/miner.png'
 import MiningCompletionAnimation from './MiningCompletionAnimation'
 import { getRpcClient, eth_getBalance } from 'thirdweb/rpc'
-import { ethereum } from 'thirdweb/chains'
-import { client } from '../config/thirdweb'
+import { polygon } from 'thirdweb/chains'
+import { client, chains } from '../config/thirdweb'
+import { getContract, prepareContractCall, sendTransaction, waitForReceipt } from 'thirdweb'
+import { useActiveWallet, useSwitchActiveWalletChain } from 'thirdweb/react'
+import { PLANET_VRF_ADDRESS, PLANET_VRF_ABI, OPERATION_COST, DEFAULT_CHAIN } from '../config/contracts'
 
 // Import token icons
 import verseIcon from '../images/tokens/verse.png'
@@ -33,6 +36,13 @@ const PlanetDetails = ({ account }) => {
     const [miningResults, setMiningResults] = useState(null)
     const [ethBalance, setEthBalance] = useState('0')
     const [isLoadingBalance, setIsLoadingBalance] = useState(false)
+    const [txHash, setTxHash] = useState(null)
+    const [txStatus, setTxStatus] = useState(null) // null, 'pending', 'success', 'error'
+    const [isOnPolygon, setIsOnPolygon] = useState(false)
+    const [isSwitchingNetwork, setIsSwitchingNetwork] = useState(false)
+    const [networkSwitchSuccess, setNetworkSwitchSuccess] = useState(false)
+    const wallet = useActiveWallet()
+    const switchChain = useSwitchActiveWalletChain()
 
     // Fetch ETH balance when account changes
     useEffect(() => {
@@ -45,7 +55,7 @@ const PlanetDetails = ({ account }) => {
 
             setIsLoadingBalance(true)
             try {
-                const rpcRequest = getRpcClient({ client, chain: ethereum })
+                const rpcRequest = getRpcClient({ client, chain: polygon })
                 const balance = await eth_getBalance(rpcRequest, {
                     address: account.address
                 })
@@ -64,6 +74,107 @@ const PlanetDetails = ({ account }) => {
 
         fetchBalance()
     }, [account])
+
+    // Check if user is on Polygon network
+    useEffect(() => {
+        const checkNetwork = () => {
+            if (wallet) {
+                const currentChain = wallet.getChain()
+                setIsOnPolygon(currentChain?.id === polygon.id)
+            } else {
+                setIsOnPolygon(false)
+            }
+        }
+
+        checkNetwork()
+
+        // Listen for chain changes
+        if (window.ethereum) {
+            const handleChainChanged = () => {
+                checkNetwork()
+            }
+            
+            window.ethereum.on('chainChanged', handleChainChanged)
+            
+            return () => {
+                if (window.ethereum.removeListener) {
+                    window.ethereum.removeListener('chainChanged', handleChainChanged)
+                }
+            }
+        }
+    }, [wallet])
+
+    const handleSwitchToPolygon = async () => {
+        if (!wallet) {
+            alert('Please connect your wallet first!')
+            return
+        }
+
+        try {
+            setIsSwitchingNetwork(true)
+            console.log('Requesting network switch to Polygon...')
+            
+            // Try using the ethereum provider directly for better compatibility
+            if (window.ethereum) {
+                try {
+                    // Try to switch to Polygon network
+                    await window.ethereum.request({
+                        method: 'wallet_switchEthereumChain',
+                        params: [{ chainId: '0x89' }], // 137 in hex
+                    })
+                    
+                    console.log('Successfully switched to Polygon network!')
+                    setIsOnPolygon(true)
+                } catch (switchError) {
+                    // This error code indicates that the chain has not been added to MetaMask
+                    if (switchError.code === 4902) {
+                        try {
+                            // Add the Polygon network
+                            await window.ethereum.request({
+                                method: 'wallet_addEthereumChain',
+                                params: [{
+                                    chainId: '0x89',
+                                    chainName: 'Polygon',
+                                    nativeCurrency: {
+                                        name: 'MATIC',
+                                        symbol: 'MATIC',
+                                        decimals: 18
+                                    },
+                                    rpcUrls: ['https://polygon-rpc.com'],
+                                    blockExplorerUrls: ['https://polygonscan.com']
+                                }]
+                            })
+                            console.log('Polygon network added successfully!')
+                            setIsOnPolygon(true)
+                        } catch (addError) {
+                            console.error('Failed to add Polygon network:', addError)
+                            throw addError
+                        }
+                    } else {
+                        throw switchError
+                    }
+                }
+            } else {
+                // Fallback to thirdweb SDK method
+                await switchChain(wallet, polygon)
+                const newChain = wallet.getChain()
+                if (newChain?.id === polygon.id) {
+                    setIsOnPolygon(true)
+                }
+            }
+        } catch (error) {
+            console.error('Failed to switch network:', error)
+            
+            // User rejected the network switch or error occurred
+            if (error.message?.includes('User rejected') || error.message?.includes('user rejected') || error.code === 4001) {
+                console.log('User cancelled network switch')
+            } else {
+                alert('Failed to switch network. Please try again or switch to Polygon manually in your wallet.')
+            }
+        } finally {
+            setIsSwitchingNetwork(false)
+        }
+    }
 
     // Resource data for each planet
     const planetResources = {
@@ -319,20 +430,79 @@ const PlanetDetails = ({ account }) => {
 
     const planetNames = ['solanium', 'zano', 'ethereus', 'ferrum', 'lumina', 'titanox', 'base', 'voidara']
 
-    const handleStartMining = (planetId) => {
-        setIsMining(true)
-        // TODO: Implement actual contract interaction
-        console.log(`Starting mining on ${planetId}`)
+    const handleStartMining = async (planetId) => {
+        if (!wallet || !account) {
+            alert('Please connect your wallet first!')
+            return
+        }
 
-        // Simulate mining process with loading states
-        setTimeout(() => {
-            setIsMining(false)
+        try {
+            setIsMining(true)
+            setTxHash(null)
+            setTxStatus(null)
 
-            // Generate random mining results based on planet
+            // This check is redundant now as button is disabled if not on Polygon
+            if (!isOnPolygon) {
+                await handleSwitchToPolygon()
+                return
+            }
+
+            // Get the contract instance
+            const contract = getContract({
+                client,
+                chain: polygon,
+                address: PLANET_VRF_ADDRESS,
+                abi: PLANET_VRF_ABI
+            })
+
+            // Prepare the transaction
+            const transaction = prepareContractCall({
+                contract,
+                method: 'startOperationETH',
+                params: [],
+                value: BigInt(parseFloat(OPERATION_COST) * 10**18) // Convert ETH to wei
+            })
+
+            // Send the transaction
+            setTxStatus('pending')
+            const { transactionHash } = await sendTransaction({
+                account,
+                transaction
+            })
+
+            setTxHash(transactionHash)
+            console.log('Transaction sent:', transactionHash)
+
+            // Wait for transaction receipt
+            const receipt = await waitForReceipt({
+                client,
+                chain: polygon,
+                transactionHash
+            })
+
+            console.log('Transaction confirmed:', receipt)
+            setTxStatus('success')
+
+            // Generate mining results
             const results = generateMiningResults(planetId)
             setMiningResults(results)
             setShowCompletionAnimation(true)
-        }, 3000)
+
+        } catch (error) {
+            console.error('Mining operation failed:', error)
+            setTxStatus('error')
+            
+            // Show user-friendly error message
+            if (error.message?.includes('insufficient funds')) {
+                alert('Insufficient funds. You need at least 0.0001 MATIC to start mining.')
+            } else if (error.message?.includes('user rejected')) {
+                alert('Transaction was cancelled.')
+            } else {
+                alert(`Mining operation failed: ${error.message || 'Unknown error'}`)
+            }
+        } finally {
+            setIsMining(false)
+        }
     }
 
     const generateMiningResults = (planetId) => {
@@ -457,9 +627,16 @@ const PlanetDetails = ({ account }) => {
 
                                 <div className="mining-stats">
                                     <div className="stat-item">
-                                        <span className="stat-label">Your ETH Balance:</span>
+                                        <span className="stat-label">Your MATIC Balance:</span>
                                         <span className="stat-value balance">
-                                            {!account ? 'Connect Wallet' : isLoadingBalance ? 'Loading...' : `${ethBalance} ETH`}
+                                            {!account ? 'Connect Wallet' : isLoadingBalance ? 'Loading...' : `${ethBalance} MATIC`}
+                                        </span>
+                                    </div>
+
+                                    <div className="stat-item network-status">
+                                        <span className="stat-label">Network Status:</span>
+                                        <span className={`stat-value ${isOnPolygon ? 'network-connected' : 'network-disconnected'}`}>
+                                            {!wallet ? 'Wallet Not Connected' : isOnPolygon ? '✓ Polygon Connected' : '⚠ Wrong Network'}
                                         </span>
                                     </div>
 
@@ -480,15 +657,61 @@ const PlanetDetails = ({ account }) => {
 
                                     <div className="stat-item">
                                         <span className="stat-label">Mining Cost:</span>
-                                        <span className="stat-value cost">{resources.miningPrice}</span>
+                                        <span className="stat-value cost">{OPERATION_COST} MATIC</span>
                                     </div>
+
+                                    {txHash && (
+                                        <div className="stat-item">
+                                            <span className="stat-label">Transaction:</span>
+                                            <a 
+                                                href={`https://polygonscan.com/tx/${txHash}`}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="stat-value tx-link"
+                                            >
+                                                {txStatus === 'pending' ? 'Pending...' : 'View on PolygonScan'}
+                                            </a>
+                                        </div>
+                                    )}
                                 </div>
+
+                                {!isOnPolygon && wallet && (
+                                    <div className="network-switch-container">
+                                        <p className="network-message">
+                                            <strong>🔗 For DEMO connect to Polygon</strong>
+                                            <br />
+                                            <span>Switch network to Polygon to test mining operations</span>
+                                        </p>
+                                        <button
+                                            type="button"
+                                            className="network-switch-btn"
+                                            onClick={handleSwitchToPolygon}
+                                            disabled={isSwitchingNetwork}
+                                        >
+                                            {isSwitchingNetwork ? (
+                                                <>
+                                                    <span className="mining-spinner"></span>
+                                                    Switching...
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                                                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                                                        <line x1="12" y1="22.08" x2="12" y2="12"/>
+                                                    </svg>
+                                                    Switch to Polygon
+                                                </>
+                                            )}
+                                        </button>
+                                    </div>
+                                )}
 
                                 <button
                                     type="button"
-                                    className={`start-mining-btn ${isMining ? 'mining' : ''}`}
+                                    className={`start-mining-btn ${isMining ? 'mining' : ''} ${!account || !isOnPolygon ? 'disabled' : ''}`}
                                     onClick={() => handleStartMining(planetId)}
-                                    disabled={isMining}
+                                    disabled={isMining || !account || !isOnPolygon}
                                 >
                                     <strong>
                                         {isMining ? (
@@ -497,6 +720,8 @@ const PlanetDetails = ({ account }) => {
                                                 Starting Mining Operation...
                                             </>
                                         ) : (
+                                            !account ? 'Connect Wallet First' : 
+                                            !isOnPolygon ? 'Switch to Polygon Network' :
                                             '⛏️ Start Mining Operation'
                                         )}
                                     </strong>

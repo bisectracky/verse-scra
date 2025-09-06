@@ -308,6 +308,17 @@ body .panel p {
     color: #9C27B0;
 }
 
+.stat-value.tx-link {
+    color: #00BCD4;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.stat-value.tx-link:hover {
+    color: #00E5FF;
+    text-decoration: underline;
+}
+
 /* Start Mining Button - Futuristic Gradient Design */
 .start-mining-btn {
     display: flex;
@@ -456,6 +467,98 @@ body .panel p {
     to {
         transform: rotate(360deg);
     }
+}
+
+/* Disabled state for start mining button */
+.start-mining-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-image: linear-gradient(#212121, #212121),
+        linear-gradient(137.48deg, #666 10%, #555 45%, #444 67%, #333 87%);
+}
+
+.start-mining-btn.disabled:hover {
+    transform: none;
+}
+
+.start-mining-btn.disabled strong {
+    color: #888;
+}
+
+/* Network status styling */
+.stat-value.network-connected {
+    color: #4CAF50;
+    font-weight: 700;
+}
+
+.stat-value.network-disconnected {
+    color: #FF5722;
+    font-weight: 700;
+}
+
+/* Network switch container */
+.network-switch-container {
+    margin: 20px 0;
+    padding: 15px;
+    background: rgba(255, 87, 34, 0.1);
+    border: 2px solid rgba(255, 87, 34, 0.3);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.network-message {
+    margin: 0 0 15px 0;
+    color: #fff;
+    line-height: 1.6;
+}
+
+.network-message strong {
+    color: #FF9800;
+    font-size: 16px;
+}
+
+.network-message span {
+    color: #cca;
+    font-size: 14px;
+}
+
+/* Network switch button */
+.network-switch-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #7c4dff 0%, #536dfe 100%);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(124, 77, 255, 0.3);
+}
+
+.network-switch-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(124, 77, 255, 0.4);
+    background: linear-gradient(135deg, #8e5eff 0%, #647fff 100%);
+}
+
+.network-switch-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.network-switch-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.network-switch-btn svg {
+    width: 20px;
+    height: 20px;
 }
 
 @keyframes animStar {

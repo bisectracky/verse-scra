@@ -5,7 +5,8 @@ export const client = createThirdwebClient({
   clientId: import.meta.env.VITE_THIRDWEB_CLIENT_ID || "demo", // Using demo for development
 })
 
-export const chains = [ethereum, base, polygon, arbitrum]
+// Set Polygon as the first/default chain
+export const chains = [polygon, ethereum, base, arbitrum]
 
 // Helper function to handle wallet provider conflicts
 export const getWalletProvider = () => {
