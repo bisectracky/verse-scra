@@ -147,7 +147,7 @@ const MiningCompletionAnimation = ({ isVisible, onClose, miningResults }) => {
                                     </div>
                                 </div>
 
-                                {results.secondaryTokens && results.secondaryTokens.length > 0 && (
+                                {results.secondaryTokens && results.secondaryTokens.length == 0 && (
                                     <div className="secondary-rewards">
                                         <div className="rewards-label">Additional Resources:</div>
                                         {results.secondaryTokens.map((token, index) => (
