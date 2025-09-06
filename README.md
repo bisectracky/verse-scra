@@ -49,7 +49,7 @@ graph TD
     F -->|Generate Random Number| G[VRF Callback]
     G -->|Calculate Prize Tier| H[Determine Reward]
     H -->|Transfer Tokens| I[Player Receives Reward]
-    
+
     style A fill:#9370DB,stroke:#7B68EE,stroke-width:2px
     style D fill:#FF6347,stroke:#FF4500,stroke-width:2px
     style F fill:#4169E1,stroke:#0000CD,stroke-width:2px
@@ -69,7 +69,7 @@ sequenceDiagram
     participant Contract as PlanetVRF Contract
     participant VRF as Chainlink VRF
     participant NFT as NFT Contract
-    
+
     Player->>UI: Select Planet & Click Mine
     UI->>Player: Request Token Approval
     Player->>Contract: Approve Token Spending
@@ -100,7 +100,7 @@ graph LR
     subgraph "Random Number Generation"
         RNG[RNG: 1-1000]
     end
-    
+
     subgraph "Prize Tiers"
         T1[1: Jackpot<br/>1,000,000 🎯]
         T2[2-3: Mega<br/>100,000 💎]
@@ -111,7 +111,7 @@ graph LR
         T7[280-799: Basic<br/>500 ⚡]
         T8[800-1000: Starter<br/>100 💫]
     end
-    
+
     RNG -->|0.1%| T1
     RNG -->|0.2%| T2
     RNG -->|0.6%| T3
@@ -120,7 +120,7 @@ graph LR
     RNG -->|20.0%| T6
     RNG -->|52.0%| T7
     RNG -->|20.1%| T8
-    
+
     style T1 fill:#FFD700,stroke:#FFA500,stroke-width:3px
     style T2 fill:#E5E4E2,stroke:#C0C0C0,stroke-width:2px
     style T3 fill:#CD853F,stroke:#8B4513,stroke-width:2px
@@ -168,12 +168,12 @@ graph TB
         A1[Predictable] --> A2[Manipulable]
         A2 --> A3[Unfair]
     end
-    
+
     subgraph "Chainlink VRF"
         B1[Verifiable] --> B2[Unpredictable]
         B2 --> B3[Fair for All]
     end
-    
+
     style A3 fill:#FF6347,stroke:#DC143C
     style B3 fill:#32CD32,stroke:#228B22
 ```

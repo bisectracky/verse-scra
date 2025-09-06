@@ -10,6 +10,7 @@ error ZeroAddress();
 error NotEnoughFunds();
 
 contract PlanetVRF is PlanetNFT, CommonVRF {
+
     // ETH price for operations (0.0001 ETH)
     uint256 public constant ETH_OPERATION_COST = 0.0001 ether;
 
